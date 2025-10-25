@@ -1,0 +1,14 @@
+# Build outputs
+dist/
+build/
+*.d.ts
+
+# Dependencies
+node_modules/
+
+# Node.js scripts (use CommonJS, not ESM)
+scripts/
+
+# Generated files
+coverage/
+.nx/

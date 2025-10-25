@@ -1,0 +1,55 @@
+{
+  "name": "16bitfit-v3-mono",
+  "version": "1.0.0",
+  "private": true,
+  "description": "16BitFit V3 - A gamified fitness app with pixel art combat",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**",
+      "**/@react-native/**",
+      "**/@react-native-community/**",
+      "**/react-native-reanimated",
+      "**/react-native-reanimated/**",
+      "**/nativewind",
+      "**/nativewind/**"
+    ]
+  },
+  "scripts": {
+    "postinstall": "node scripts/fix-boost-ios.js",
+    "mobile-shell": "nx run mobile-shell:start",
+    "ios": "nx run mobile-shell:run-ios",
+    "android": "nx run mobile-shell:run-android",
+    "build:ios": "nx run mobile-shell:build-ios",
+    "build:android": "nx run mobile-shell:build-android",
+    "lint": "nx run-many --target=lint --all",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "type-check": "nx run-many --target=type-check --all",
+    "test": "nx run-many --target=test --all",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-native": "^4.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "nx": "^17.2.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
