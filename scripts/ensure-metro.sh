@@ -45,18 +45,24 @@ if [ -z "$SRCROOT" ]; then
 fi
 
 IOS_DIR="$SRCROOT"
-APP_DIR="${IOS_DIR}/.."          # apps/mobile-shell
-PROJECT_ROOT="${APP_DIR}/../.."  # Monorepo root
+# Resolve to absolute paths to ensure file tests work correctly
+APP_DIR="$(cd "$IOS_DIR/.." && pwd)"           # apps/mobile-shell
+PROJECT_ROOT="$(cd "$APP_DIR/../.." && pwd)"   # Monorepo root
 
 # Log file within the app directory for easy access
 LOG_FILE="${APP_DIR}/metro-sync.log"
 
 # Find react-native CLI script (handle monorepo hoisting)
 RN_CLI_PATH="${PROJECT_ROOT}/node_modules/react-native/cli.js"
-[ ! -f "$RN_CLI_PATH" ] && RN_CLI_PATH="${APP_DIR}/node_modules/react-native/cli.js"
+if [ ! -f "$RN_CLI_PATH" ]; then
+  RN_CLI_PATH="${APP_DIR}/node_modules/react-native/cli.js"
+fi
 
 if [ ! -f "$RN_CLI_PATH" ]; then
-  echo "error: Can't find react-native/cli.js. Ensure dependencies are installed (npm install)."
+  echo "error: Can't find react-native/cli.js at:"
+  echo "  Tried: ${PROJECT_ROOT}/node_modules/react-native/cli.js"
+  echo "  Tried: ${APP_DIR}/node_modules/react-native/cli.js"
+  echo "Ensure dependencies are installed (npm install)."
   exit 1
 fi
 
