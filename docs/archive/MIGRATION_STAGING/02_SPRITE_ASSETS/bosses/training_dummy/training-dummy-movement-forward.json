@@ -1,0 +1,188 @@
+{
+  "textures": [
+    {
+      "image": "training dummy-movement-forward.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 1024,
+        "h": 2048
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "frame_002",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 91,
+            "y": 15,
+            "w": 327,
+            "h": 496
+          },
+          "frame": {
+            "x": 3,
+            "y": 3,
+            "w": 327,
+            "h": 496
+          }
+        },
+        {
+          "filename": "frame_007",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 96,
+            "y": 8,
+            "w": 310,
+            "h": 498
+          },
+          "frame": {
+            "x": 334,
+            "y": 3,
+            "w": 310,
+            "h": 498
+          }
+        },
+        {
+          "filename": "frame_004",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 98,
+            "y": 10,
+            "w": 306,
+            "h": 499
+          },
+          "frame": {
+            "x": 3,
+            "y": 503,
+            "w": 306,
+            "h": 499
+          }
+        },
+        {
+          "filename": "frame_006",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 132,
+            "y": 6,
+            "w": 257,
+            "h": 501
+          },
+          "frame": {
+            "x": 648,
+            "y": 3,
+            "w": 257,
+            "h": 501
+          }
+        },
+        {
+          "filename": "frame_008",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 115,
+            "y": 12,
+            "w": 255,
+            "h": 494
+          },
+          "frame": {
+            "x": 313,
+            "y": 505,
+            "w": 255,
+            "h": 494
+          }
+        },
+        {
+          "filename": "frame_001",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 129,
+            "y": 10,
+            "w": 253,
+            "h": 496
+          },
+          "frame": {
+            "x": 572,
+            "y": 508,
+            "w": 253,
+            "h": 496
+          }
+        },
+        {
+          "filename": "frame_003",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 133,
+            "y": 10,
+            "w": 225,
+            "h": 496
+          },
+          "frame": {
+            "x": 313,
+            "y": 1003,
+            "w": 225,
+            "h": 496
+          }
+        },
+        {
+          "filename": "frame_005",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 135,
+            "y": 8,
+            "w": 224,
+            "h": 498
+          },
+          "frame": {
+            "x": 3,
+            "y": 1503,
+            "w": 224,
+            "h": 498
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "3.0",
+    "smartupdate": "$TexturePacker:SmartUpdate:f9a273d3af17bef134c9e848c000b885:e931acc2c317d680a8ddb06b6b90fe2e:71bccbd00bb1097e529dd78588383b4a$"
+  }
+}

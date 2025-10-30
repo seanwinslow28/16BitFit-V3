@@ -1,0 +1,188 @@
+{
+  "textures": [
+    {
+      "image": "training dummy-primary-attack.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 512,
+        "h": 2048
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "frame_004",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 24,
+            "y": 106,
+            "w": 352,
+            "h": 352
+          },
+          "frame": {
+            "x": 3,
+            "y": 3,
+            "w": 352,
+            "h": 352
+          }
+        },
+        {
+          "filename": "frame_005",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 34,
+            "y": 105,
+            "w": 339,
+            "h": 353
+          },
+          "frame": {
+            "x": 3,
+            "y": 359,
+            "w": 339,
+            "h": 353
+          }
+        },
+        {
+          "filename": "frame_006",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 88,
+            "y": 112,
+            "w": 275,
+            "h": 345
+          },
+          "frame": {
+            "x": 3,
+            "y": 716,
+            "w": 275,
+            "h": 345
+          }
+        },
+        {
+          "filename": "frame_007",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 128,
+            "y": 106,
+            "w": 224,
+            "h": 352
+          },
+          "frame": {
+            "x": 282,
+            "y": 716,
+            "w": 224,
+            "h": 352
+          }
+        },
+        {
+          "filename": "frame_002",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 107,
+            "y": 105,
+            "w": 239,
+            "h": 353
+          },
+          "frame": {
+            "x": 3,
+            "y": 1065,
+            "w": 239,
+            "h": 353
+          }
+        },
+        {
+          "filename": "frame_003",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 128,
+            "y": 105,
+            "w": 235,
+            "h": 352
+          },
+          "frame": {
+            "x": 246,
+            "y": 1072,
+            "w": 235,
+            "h": 352
+          }
+        },
+        {
+          "filename": "frame_008",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 165,
+            "y": 105,
+            "w": 181,
+            "h": 353
+          },
+          "frame": {
+            "x": 3,
+            "y": 1422,
+            "w": 181,
+            "h": 353
+          }
+        },
+        {
+          "filename": "frame_001",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 166,
+            "y": 105,
+            "w": 180,
+            "h": 353
+          },
+          "frame": {
+            "x": 188,
+            "y": 1428,
+            "w": 180,
+            "h": 353
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "3.0",
+    "smartupdate": "$TexturePacker:SmartUpdate:62ede9c741bac45ee60eac302ee0761f:b23013a346335f556de7cb51e853e521:d06cb4a68333375c26b0e88b15775444$"
+  }
+}

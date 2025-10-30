@@ -1,0 +1,230 @@
+{
+  "textures": [
+    {
+      "image": "training dummy-walk-backwards.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 1024,
+        "h": 2048
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "frame_002",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 86,
+            "y": 14,
+            "w": 332,
+            "h": 493
+          },
+          "frame": {
+            "x": 3,
+            "y": 3,
+            "w": 332,
+            "h": 493
+          }
+        },
+        {
+          "filename": "frame_009",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 94,
+            "y": 8,
+            "w": 317,
+            "h": 498
+          },
+          "frame": {
+            "x": 339,
+            "y": 3,
+            "w": 317,
+            "h": 498
+          }
+        },
+        {
+          "filename": "frame_004",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 100,
+            "y": 12,
+            "w": 314,
+            "h": 498
+          },
+          "frame": {
+            "x": 3,
+            "y": 500,
+            "w": 314,
+            "h": 498
+          }
+        },
+        {
+          "filename": "frame_006",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 105,
+            "y": 9,
+            "w": 294,
+            "h": 499
+          },
+          "frame": {
+            "x": 660,
+            "y": 3,
+            "w": 294,
+            "h": 499
+          }
+        },
+        {
+          "filename": "frame_007",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 114,
+            "y": 5,
+            "w": 265,
+            "h": 501
+          },
+          "frame": {
+            "x": 321,
+            "y": 505,
+            "w": 265,
+            "h": 501
+          }
+        },
+        {
+          "filename": "frame_001",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 115,
+            "y": 12,
+            "w": 255,
+            "h": 494
+          },
+          "frame": {
+            "x": 3,
+            "y": 1002,
+            "w": 255,
+            "h": 494
+          }
+        },
+        {
+          "filename": "frame_008",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 146,
+            "y": 4,
+            "w": 233,
+            "h": 502
+          },
+          "frame": {
+            "x": 3,
+            "y": 1500,
+            "w": 233,
+            "h": 502
+          }
+        },
+        {
+          "filename": "frame_005",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 135,
+            "y": 9,
+            "w": 222,
+            "h": 497
+          },
+          "frame": {
+            "x": 240,
+            "y": 1500,
+            "w": 222,
+            "h": 497
+          }
+        },
+        {
+          "filename": "frame_010",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 129,
+            "y": 10,
+            "w": 253,
+            "h": 496
+          },
+          "frame": {
+            "x": 590,
+            "y": 506,
+            "w": 253,
+            "h": 496
+          }
+        },
+        {
+          "filename": "frame_003",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 512,
+            "h": 512
+          },
+          "spriteSourceSize": {
+            "x": 133,
+            "y": 12,
+            "w": 232,
+            "h": 494
+          },
+          "frame": {
+            "x": 590,
+            "y": 1006,
+            "w": 232,
+            "h": 494
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "3.0",
+    "smartupdate": "$TexturePacker:SmartUpdate:09dd29e1d99085539ccaed492dc948cd:dea20bdc167bff2ceeda102259c8f502:bf3d8e2ac4ee3b74d54baa2a1b9c8ba3$"
+  }
+}
