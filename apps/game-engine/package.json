@@ -1,0 +1,22 @@
+{
+  "name": "@apps/game-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Phaser 3 game engine for 16BitFit combat system",
+  "main": "dist/game.bundle.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "phaser": "^3.70.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "ts-loader": "^9.5.1"
+  }
+}

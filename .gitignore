@@ -59,6 +59,12 @@ DerivedData/
 *.ipa
 *.xcuserstate
 ios/.xcode.env.local
+# iOS Build Logs
+**/ios/Build*.txt
+**/ios/*.txt
+# Podfile duplicates
+Podfile*.lock
+!Podfile.lock
 
 # Android
 android/.gradle/
@@ -75,3 +81,17 @@ coverage/
 
 # Misc
 .turbo/
+
+# Temporary/Archive files
+*.bak
+*.backup
+*~
+*.swp
+*.swo
+
+# Ruby bundler (iOS)
+.bundle/
+vendor/bundle/
+
+# Migration staging (local reference only - not committed to git)
+docs/archive/MIGRATION_STAGING/
