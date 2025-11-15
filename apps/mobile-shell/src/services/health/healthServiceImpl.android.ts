@@ -12,6 +12,7 @@ import {
   readRecords,
   getSdkStatus,
   SdkAvailabilityStatus,
+  type Permission,
 } from 'react-native-health-connect';
 
 class HealthServiceAndroid implements IHealthPlatformService {
@@ -56,8 +57,8 @@ class HealthServiceAndroid implements IHealthPlatformService {
       }
 
       // Request step count read permission
-      const permissions = [
-        { accessType: 'read', recordType: 'Steps' },
+      const permissions: Permission[] = [
+        { accessType: 'read' as const, recordType: 'Steps' as const },
       ];
 
       const granted = await requestPermission(permissions);
@@ -87,7 +88,7 @@ class HealthServiceAndroid implements IHealthPlatformService {
       }
 
       // Fetch step records
-      const records = await readRecords('Steps', {
+      const result = await readRecords('Steps', {
         timeRangeFilter: {
           operator: 'between',
           startTime: startDate.toISOString(),
@@ -97,6 +98,9 @@ class HealthServiceAndroid implements IHealthPlatformService {
 
       // Aggregate by date (CRITICAL: Health Connect returns raw records)
       const dailyTotals = new Map<string, number>();
+
+      // Access the records array from the result
+      const records = result.records || [];
 
       for (const record of records) {
         // Extract date in YYYY-MM-DD format

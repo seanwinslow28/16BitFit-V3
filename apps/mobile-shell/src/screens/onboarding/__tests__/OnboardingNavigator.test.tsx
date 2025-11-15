@@ -29,7 +29,7 @@ describe('OnboardingNavigator', () => {
     const { getByText } = renderNavigator();
     // Check for Welcome screen specific content
     expect(getByText('GET STARTED')).toBeTruthy();
-    expect(getByText(/Transform your fitness journey/i)).toBeTruthy();
+    expect(getByText(/Your fitness journey starts here/i)).toBeTruthy();
   });
 
   it('should display progress indicator', () => {

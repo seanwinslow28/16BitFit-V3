@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen, waitFor, act } from '@testing-library/react-native';
+import { render, fireEvent, screen, act } from '@testing-library/react-native';
 import ProfileSetupScreen from '../ProfileSetupScreen';
 import { useOnboarding } from '../context/OnboardingContext';
 import { PixelInput } from '@/components/atoms';
@@ -16,11 +16,22 @@ jest.mock('@/design-system', () => ({
 // Mock atomic components (require inside factory)
 jest.mock('@/components/atoms', () => {
   const React = require('react');
-  const { Button, Text, View, TextInput } = require('react-native');
+  const { TouchableOpacity, Text, View, TextInput } = require('react-native');
   return {
-    PixelButton: jest.fn(({ children, onPress, disabled, accessibilityLabel }) =>
-      React.createElement(Button, { title: String(children), onPress, disabled, accessibilityLabel })
-    ),
+    PixelButton: jest.fn(({ children, onPress, disabled, isLoading, accessibilityLabel }) => {
+      const isDisabled = Boolean(disabled || isLoading);
+      return React.createElement(
+        TouchableOpacity,
+        {
+          onPress,
+          disabled: isDisabled,
+          accessibilityLabel,
+          accessibilityRole: 'button',
+          accessibilityState: { disabled: isDisabled },
+        },
+        React.createElement(Text, {}, children)
+      );
+    }),
     PixelText: jest.fn(({ children }) =>
       React.createElement(Text, {}, children)
     ),
@@ -71,6 +82,9 @@ describe('ProfileSetupScreen', () => {
   });
 
   afterEach(() => {
+    act(() => {
+      jest.runAllTimers();
+    });
     jest.useRealTimers();
   });
 
@@ -83,7 +97,7 @@ describe('ProfileSetupScreen', () => {
     expect(screen.getByText('CREATE PROFILE')).toBeTruthy();
     expect(screen.getByLabelText('Username Input')).toBeTruthy();
     // Button should be disabled initially (pristine and empty)
-    expect(screen.getByLabelText('Create Account').props.disabled).toBe(true);
+    expect(screen.getByLabelText('Create Account').props.accessibilityState.disabled).toBe(true);
   });
 
   it('calls setCurrentStep(2) on mount', () => {
@@ -105,13 +119,10 @@ describe('ProfileSetupScreen', () => {
             jest.advanceTimersByTime(300);
         });
 
-        await waitFor(() => {
-          // Check if PixelInput was called with the correct error prop
-          expect(PixelInput).toHaveBeenCalledWith(expect.objectContaining({
-            error: 'Username must be at least 3 characters',
-          }), expect.anything());
-        });
-        expect(screen.getByLabelText('Create Account').props.disabled).toBe(true);
+        expect(PixelInput).toHaveBeenCalledWith(expect.objectContaining({
+          error: 'Username must be at least 3 characters',
+        }), expect.anything());
+        expect(screen.getByLabelText('Create Account').props.accessibilityState.disabled).toBe(true);
       });
 
     it('shows error for invalid characters', async () => {
@@ -123,11 +134,9 @@ describe('ProfileSetupScreen', () => {
             jest.advanceTimersByTime(300);
         });
 
-        await waitFor(() => {
-          expect(PixelInput).toHaveBeenCalledWith(expect.objectContaining({
-            error: 'Only letters, numbers, and underscores allowed',
-          }), expect.anything());
-        });
+        expect(PixelInput).toHaveBeenCalledWith(expect.objectContaining({
+          error: 'Only letters, numbers, and underscores allowed',
+        }), expect.anything());
       });
 
       it('shows success state and enables button when valid', async () => {
@@ -139,14 +148,12 @@ describe('ProfileSetupScreen', () => {
             jest.advanceTimersByTime(300);
         });
 
-        await waitFor(() => {
-          expect(PixelInput).toHaveBeenCalledWith(expect.objectContaining({
-            error: false,
-            success: true,
-          }), expect.anything());
-        });
+        expect(PixelInput).toHaveBeenCalledWith(expect.objectContaining({
+          error: false,
+          success: true,
+        }), expect.anything());
         // Button should be enabled
-        expect(screen.getByLabelText('Create Account').props.disabled).toBe(false);
+        expect(screen.getByLabelText('Create Account').props.accessibilityState.disabled).toBe(false);
       });
   });
 
@@ -164,9 +171,7 @@ describe('ProfileSetupScreen', () => {
             jest.advanceTimersByTime(300);
         });
 
-        await waitFor(() => {
-            expect(submitButton.props.disabled).toBe(false);
-        });
+        expect(submitButton.props.accessibilityState.disabled).toBe(false);
 
         fireEvent.press(submitButton);
 

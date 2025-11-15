@@ -1,0 +1,26 @@
+// 16BitFit-V3/apps/mobile-shell/metro.config.js
+const { getDefaultConfig } = require('expo/metro-config');
+const path = require('path');
+
+// Find the project and workspace roots
+const projectRoot = __dirname;
+// This resolves to the monorepo root (../../ from apps/mobile-shell)
+const workspaceRoot = path.resolve(projectRoot, '../..');
+
+// Create the default Expo config
+const config = getDefaultConfig(projectRoot);
+
+// 1. Watch all files within the monorepo (including shared packages)
+config.watchFolders = [workspaceRoot];
+
+// 2. Let Metro know where to resolve packages (required for hoistingLimits)
+config.resolver.nodeModulesPaths = [
+  path.resolve(projectRoot, 'node_modules'), // local node_modules
+  path.resolve(workspaceRoot, 'node_modules'), // root node_modules
+];
+
+// 3. Force Metro to resolve dependencies only from these specific locations.
+// This is CRUCIAL when using `hoistingLimits` to prevent conflicts.
+config.resolver.disableHierarchicalLookup = true;
+
+module.exports = config;

@@ -6,6 +6,116 @@
 
 ---
 
+## Boss 1: Training Dummy
+
+### Visual Analysis
+
+**Overall Appearance:
+
+Wooden-and-metal humanoid training figure resembling a martial arts practice dummy
+
+Boxy, mechanical frame built from gym and dojo scraps
+
+Neutral stance with limited articulation points
+
+Comedic but slightly eerie design — “lifeless yet determined” look
+
+Clearly the introductory boss, simple yet iconic
+
+**Head & Face:
+
+Round, featureless faceplate made of dull silver metal (#C0C0C0)
+
+Two faintly indented “eyes” suggest expressionless focus
+
+Small circular rivets line the face edge
+
+Occasional dents and scratches showing heavy use
+
+Top plate slightly darker gray for depth (#A9A9A9)
+
+**Body & Build:
+
+Wooden torso core with crossbar limbs (#8B5A2B base color)
+
+Box-jointed arms and legs connected by metallic bolts (#696969)
+
+Slightly uneven proportions, handmade aesthetic
+
+Center torso padded with worn gray fabric (#A9A9A9)
+
+Noticeable duct-tape repairs and patchwork seams
+
+**Clothing Details:
+
+None — the dummy is mostly bare construction material
+
+A few stray wrist wraps or gym tape remnants
+
+One shoulder has a hanging torn sparring pad (#BEBEBE), symbolizing its overuse
+
+Faint number stencils (“01”) printed in black (#212121)
+
+**Color Palette:
+
+Wood Frame: Brown (#8B5A2B)
+
+Padding: Gray (#A9A9A9)
+
+Metal Joints: Steel gray (#696969)
+
+Faceplate: Silver (#C0C0C0)
+
+Outline: Charcoal black (#212121)
+
+**Artistic Style:
+
+Clean Street Fighter II–inspired pixel art
+
+Strong outlines for silhouette clarity
+
+Balanced shading on cylindrical limbs for dimensionality
+
+Limited color range to emphasize mechanical simplicity
+
+Slight asymmetry to convey makeshift construction
+
+**Personality Visual Cues:
+
+Neutral stance = calm beginner test opponent
+
+Wooden limbs = stiff movement and predictable rhythm
+
+Worn padding = years of repetitive strikes endured
+
+Lack of face = emotionless objectivity — it’s just doing its job
+
+Simple structure = approachable difficulty level
+
+**Animation Personality
+
+Idle: Subtle bobbing, squeaky hinge movements, small mechanical tremor
+Approach: Clunky stepping with rhythmic “thunk” sounds, slow but deliberate
+Basic Attack: Short jab or spinning arm swipe, exaggerated wind-up
+Heavy Attack: Full torso rotation with “dummy spin” hitbox
+Special Attack: “Practice Mode Spin” — rapid rotation with momentum loss afterward
+Rage Mode: Rapid uncontrolled spinning, bolts flying off
+Take Hit: Springs backward slightly, wooden clatter sound
+Stunned: Limbs twitch in malfunction loop
+Defeat: Collapses in heap, emits puff of sawdust, then slowly powers down
+
+**Design Notes
+
+Serves as the tutorial boss, introducing players to timing and blocking mechanics
+
+Its neutral palette ensures contrast with later, more colorful enemies
+
+Wooden + metal hybrid reflects its function as a man-made sparring construct
+
+Comedic charm: intentionally clumsy design, lovable underdog energy
+
+Meant to be both punchable and endearing, the first real “training test” for new fighters
+
 ## 🎨 Boss 2: Procrastination Phantom
 
 ### Visual Analysis

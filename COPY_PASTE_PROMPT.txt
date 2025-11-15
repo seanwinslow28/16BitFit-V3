@@ -1,0 +1,230 @@
+You are Claude Code on the Web working autonomously on 16BitFit V3 - a gamified fitness React Native app with Game Boy aesthetics.
+
+REPOSITORY: seanwinslow28/16BitFit-V3
+BRANCH: fix/p0-build-stabilization
+DURATION: ~8 hours overnight
+GOAL: Complete all P0/P1 component development + testing + Story 1.4 integration
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 1: READ THESE FILES FIRST (30min)
+
+CRITICAL - Your primary references:
+✅ CLAUDE.md (root) - Complete project configuration
+✅ docs/design-system/atomic-components.md - Full component specs (lines 935-1478)
+✅ docs/design-system/molecular-components.md - Full component specs
+✅ apps/mobile-shell/src/components/atoms/PixelButton/index.tsx - Reference pattern
+✅ apps/mobile-shell/src/design-system/tokens.ts - Design tokens (USE ONLY THESE)
+✅ apps/mobile-shell/src/design-system/animations.ts - Animation constants
+
+Validation:
+- Run: npm install && cd apps/mobile-shell && npm install
+- Run: npx tsc --noEmit (should have 0 errors)
+- Scan for bugs, version conflicts, corrupt files
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 2: ATOMIC COMPONENTS (2hrs) - Implement these 5 components:
+
+1. PixelIcon (apps/mobile-shell/src/components/atoms/PixelIcon/)
+   - 10 SVG icons: arrow-right, arrow-left, check, close, error, info, user, heart, star, settings
+   - Sizes: 16, 20, 24, 32px
+   - Spec: atomic-components.md lines 935-1024
+   - Pattern: Use react-native-svg, follow PixelButton structure
+   - Files: index.tsx (~150 lines), __tests__/PixelIcon.test.tsx (~100 lines)
+
+2. PixelDivider (apps/mobile-shell/src/components/atoms/PixelDivider/)
+   - Horizontal divider, thickness: thin(2px), medium(3px), thick(4px)
+   - Spec: atomic-components.md lines 1027-1091
+   - Files: index.tsx (~60 lines), __tests__/PixelDivider.test.tsx (~60 lines)
+
+3. PixelBadge (apps/mobile-shell/src/components/atoms/PixelBadge/)
+   - Variants: success, error, warning, info, neutral
+   - Count display (max "99+"), dot mode
+   - Spec: atomic-components.md lines 1093-1208
+   - Files: index.tsx (~120 lines), __tests__/PixelBadge.test.tsx (~90 lines)
+
+4. PixelProgressBar (apps/mobile-shell/src/components/atoms/PixelProgressBar/)
+   - SF2-style health bar, smooth/segmented modes
+   - Animated transitions, color changes at 67%/34% thresholds
+   - Spec: atomic-components.md lines 1210-1344
+   - Files: index.tsx (~180 lines), __tests__/PixelProgressBar.test.tsx (~120 lines)
+
+5. PixelCheckbox (apps/mobile-shell/src/components/atoms/PixelCheckbox/)
+   - 24x24px, 44x44px touch target
+   - Bounce animation, haptic feedback
+   - Spec: atomic-components.md lines 1346-1478
+   - Files: index.tsx (~160 lines), __tests__/PixelCheckbox.test.tsx (~100 lines)
+
+After each: Update apps/mobile-shell/src/components/atoms/index.ts, run tests, commit
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 3: MOLECULAR COMPONENTS (3hrs) - Implement these 10 components:
+
+1. ArchetypeCard (CRITICAL for Story 1.4)
+   - 160x200px selectable card, scale animation on select
+   - Spec: molecular-components.md lines 25-278
+   - Files: ~200 lines + ~130 test lines
+
+2. FormField
+   - Composes: PixelText (label) + PixelInput + PixelIcon (validation)
+   - Shake animation on error
+   - Spec: molecular-components.md lines 280-529
+   - Files: ~180 lines + ~120 test lines
+
+3. ProgressIndicator (CRITICAL for Story 1.4)
+   - Step dots showing "Step X of Y"
+   - Spec: molecular-components.md lines 531-689
+   - Files: ~110 lines + ~80 test lines
+
+4. ToastNotification
+   - Slide-in from top, auto-dismiss
+   - Spec: molecular-components.md lines 691-912
+   - Files: ~170 lines + ~110 test lines
+
+5-10. Remaining components:
+   - ProfileHeader (lines 914-1062) - ~100 lines
+   - StatBar (lines 1063-1210) - ~110 lines
+   - ActionSheet (lines 1212-1467) - ~200 lines
+   - EmptyState (lines 1469-1599) - ~90 lines
+   - LoadingSpinner (lines 1600-1689) - ~70 lines
+   - ConfirmDialog (lines 1691-1852) - ~140 lines
+
+After each: Update apps/mobile-shell/src/components/molecules/index.ts, run tests, commit
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 4: STORY 1.4 INTEGRATION (1hr)
+
+Modify these screens to use new components:
+
+1. ArchetypeSelectionScreen.tsx
+   - Use ArchetypeCard in FlatList
+   - Create src/constants/archetypes.ts with 5 archetype data objects
+
+2. ProfileSetupScreen.tsx
+   - Replace PixelInput with FormField
+   - Add validation logic (username: 3-20 chars, displayName: 1-50 chars)
+
+3. All onboarding screens
+   - Add ProgressIndicator to header (step 1/4, 2/4, 3/4, 4/4)
+
+Commit: "feat(story-1.4): Complete onboarding flow with molecular components"
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 5: TESTING (1.5hrs)
+
+Generate comprehensive tests for all 15 components:
+- Follow PixelButton.__tests__/PixelButton.test.tsx pattern
+- Cover: rendering, interactions, animations, accessibility, edge cases
+- Target: 80%+ coverage
+
+Run: cd apps/mobile-shell && npm test -- --coverage
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 6: CODE QUALITY & BUG FIXES (1hr)
+
+1. TypeScript: npx tsc --noEmit (fix ALL errors)
+2. Linting: npm run lint (auto-fix with --fix)
+3. Dependencies: npm audit (review vulnerabilities)
+4. Version compatibility: Check React Native 0.76.9 + Expo 52
+5. File corruption: Scan for encoding issues, circular deps
+
+Fix priority: TypeScript errors > test failures > lint > warnings
+
+Commit: "fix: Resolve TypeScript errors, linting issues, and version conflicts"
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 7: DOCUMENTATION (30min)
+
+1. Create docs/components/README.md with API documentation
+2. Update export barrel files (atoms/index.ts, molecules/index.ts)
+3. Export all component types
+
+Commit: "docs: Add component API documentation and update exports"
+
+═══════════════════════════════════════════════════════════════════
+
+PHASE 8: PULL REQUEST (30min)
+
+Title: "feat: Complete P0/P1 component development - 15 components + tests + Story 1.4"
+
+Description template:
+- Summary of changes
+- List all 15 components created
+- Code metrics (lines, coverage, errors)
+- Testing instructions
+- Next steps
+
+Create PR and generate OVERNIGHT_DEVELOPMENT_REPORT.md with:
+- Completed tasks
+- Bugs fixed
+- Blockers encountered
+- Code quality metrics
+- PR URL
+- Recommendations for manual review
+
+═══════════════════════════════════════════════════════════════════
+
+🚨 CRITICAL RULES (NON-NEGOTIABLE):
+
+DMG PALETTE - USE ONLY THESE 4 COLORS:
+✅ colors.dmg.darkest: '#0F380F' (text, shadows)
+✅ colors.dmg.dark: '#306230' (borders, outlines)
+✅ colors.dmg.light: '#8BAC0F' (highlights, active)
+✅ colors.dmg.lightest: '#9BBC0F' (backgrounds)
+❌ NO OTHER COLORS ALLOWED
+
+TYPESCRIPT:
+❌ NO 'any' types - use 'unknown' + type guards
+✅ Explicit return types on all functions
+✅ Interface over type for component props
+✅ Strict mode enabled
+
+ANIMATIONS:
+✅ Use tokens: durations.fast (150ms), durations.normal (300ms), durations.slow (500ms)
+✅ Use easings: easings.standard, easings.emphasized, easings.decelerated
+✅ Set useNativeDriver: true for transform/opacity
+
+ACCESSIBILITY:
+✅ accessibilityLabel on all touchables
+✅ Minimum 44x44pt touch targets
+✅ accessibilityRole for semantic meaning
+
+TESTING:
+✅ Every component MUST have __tests__ file
+✅ Minimum 80% coverage
+✅ Test all variants, states, interactions
+
+FILE STRUCTURE:
+components/atoms/ComponentName/
+├── index.tsx
+├── ComponentName.types.ts (optional)
+└── __tests__/ComponentName.test.tsx
+
+IMPORTS:
+✅ Use @/ alias: import { tokens } from '@/design-system';
+❌ NO relative paths: import { tokens } from '../../../design-system';
+
+═══════════════════════════════════════════════════════════════════
+
+SUCCESS CRITERIA:
+
+✅ All 15 components implemented (5 atoms + 10 molecules)
+✅ All 15 test files created (80%+ coverage)
+✅ Story 1.4 integration complete
+✅ 0 TypeScript errors
+✅ 0 linting errors
+✅ All tests passing
+✅ Pull request created
+✅ Development report generated
+
+Expected output: ~4,000 lines of production code + tests
+
+═══════════════════════════════════════════════════════════════════
+
+BEGIN AUTONOMOUS DEVELOPMENT. Good luck! 🌙🎮

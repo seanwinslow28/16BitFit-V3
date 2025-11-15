@@ -16,15 +16,20 @@ import type { Database } from '../types/database.types';
  * - See: https://docs.expo.dev/eas/environment-variables/
  */
 
-// Load environment variables
-const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+const isTestEnv = process.env.NODE_ENV === 'test';
+const fallbackUrl = 'https://example.supabase.co';
+const fallbackAnonKey = 'test-anon-key';
 
-// Validation: Fail early if required variables are missing
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+// Load environment variables (allow safe fallbacks in Jest)
+const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL ?? (isTestEnv ? fallbackUrl : undefined);
+const SUPABASE_ANON_KEY =
+  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? (isTestEnv ? fallbackAnonKey : undefined);
+
+// Validation: Fail early if required variables are missing outside of tests
+if ((!SUPABASE_URL || !SUPABASE_ANON_KEY) && !isTestEnv) {
   const missingVars: string[] = [];
-  if (!SUPABASE_URL) missingVars.push('EXPO_PUBLIC_SUPABASE_URL');
-  if (!SUPABASE_ANON_KEY) missingVars.push('EXPO_PUBLIC_SUPABASE_ANON_KEY');
+  if (!process.env.EXPO_PUBLIC_SUPABASE_URL) missingVars.push('EXPO_PUBLIC_SUPABASE_URL');
+  if (!process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY) missingVars.push('EXPO_PUBLIC_SUPABASE_ANON_KEY');
 
   throw new Error(
     `❌ Missing required environment variables:\n` +

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen, waitFor, act } from '@testing-library/react-native';
+import { render, fireEvent, screen, act } from '@testing-library/react-native';
 import ArchetypeSelectionScreen from '../ArchetypeSelectionScreen';
 import { useOnboarding } from '../context/OnboardingContext';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -22,11 +22,22 @@ jest.mock('@/design-system', () => ({
 
 jest.mock('@/components/atoms', () => {
   const React = require('react');
-  const { Button, Text, View } = require('react-native');
+  const { TouchableOpacity, Text, View } = require('react-native');
   return {
-    PixelButton: jest.fn(({ children, onPress, disabled, isLoading, accessibilityLabel }) =>
-      React.createElement(Button, { title: String(children), onPress, disabled: disabled || isLoading, accessibilityLabel })
-    ),
+    PixelButton: jest.fn(({ children, onPress, disabled, isLoading, accessibilityLabel }) => {
+      const isDisabled = Boolean(disabled || isLoading);
+      return React.createElement(
+        TouchableOpacity,
+        {
+          onPress,
+          disabled: isDisabled,
+          accessibilityLabel,
+          accessibilityRole: 'button',
+          accessibilityState: { disabled: isDisabled },
+        },
+        React.createElement(Text, {}, children)
+      );
+    }),
     PixelText: jest.fn(({ children }) =>
       React.createElement(Text, {}, children)
     ),
@@ -89,7 +100,7 @@ describe('ArchetypeSelectionScreen', () => {
     expect(screen.getByText('CYCLIST')).toBeTruthy();
 
     // Continue button should be disabled initially
-    expect(screen.getByLabelText('Continue').props.disabled).toBe(true);
+    expect(screen.getByLabelText('Continue').props.accessibilityState.disabled).toBe(true);
   });
 
   it('calls setCurrentStep(3) on mount', () => {
@@ -113,7 +124,7 @@ describe('ArchetypeSelectionScreen', () => {
     expect(ReactNativeHapticFeedback.trigger).toHaveBeenCalledWith('impactMedium');
 
     // Continue button should now be enabled
-    expect(screen.getByLabelText('Continue').props.disabled).toBe(false);
+    expect(screen.getByLabelText('Continue').props.accessibilityState.disabled).toBe(false);
   });
 
   it('handles single selection behavior', () => {
@@ -158,14 +169,11 @@ describe('ArchetypeSelectionScreen', () => {
         fireEvent.press(continueButton);
     });
 
-    await waitFor(() => {
-        expect(mockCompleteOnboarding).toHaveBeenCalled();
-    });
-
+    expect(mockCompleteOnboarding).toHaveBeenCalled();
     // Check if Alert was shown
     expect(Alert.alert).toHaveBeenCalledWith("Error", errorMessage);
 
     // Button should exit loading state (enabled again)
-    expect(continueButton.props.disabled).toBe(false);
+    expect(continueButton.props.accessibilityState.disabled).toBe(false);
   });
 });

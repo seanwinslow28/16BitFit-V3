@@ -1,19 +1,10 @@
-require_relative '../../../node_modules/react-native/scripts/react_native_pods'
-require_relative '../../../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 
 platform :ios, '15.1'
 prepare_react_native_project!
 
-# If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
-# because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
-#
-# To fix this you can also exclude `react-native-flipper` using a `react-native.config.js`
-# ```js
-# module.exports = {
-#   dependencies: {
-#     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
-# ```
-flipper_config = FlipperConfiguration.disabled
+# Flipper was removed in React Native 0.76+
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
@@ -22,16 +13,27 @@ if linkage != nil
 end
 
 target 'MobileShell' do
-  config = use_native_modules!
+  use_expo_modules!
 
-  # Flags change depending on the env values.
-  flags = get_default_flags()
+  if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'
+    config_command = ['node', '-e', "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"];
+  else
+    config_command = [
+      'node',
+      '--no-warnings',
+      '--eval',
+      'require(require.resolve(\'expo-modules-autolinking\', { paths: [require.resolve(\'expo/package.json\')] }))(process.argv.slice(1))',
+      'react-native-config',
+      '--json',
+      '--platform',
+      'ios'
+    ]
+  end
+
+  config = use_native_modules!(config_command)
 
   use_react_native!(
     :path => config[:reactNativePath],
-    :hermes_enabled => true,
-    :fabric_enabled => false,
-    :flipper_configuration => flipper_config,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
@@ -41,18 +43,16 @@ target 'MobileShell' do
   end
 
   post_install do |installer|
-    # Standard React Native post install (configured for monorepo path)
+    # Standard React Native post install
     react_native_post_install(
       installer,
-      "../../../node_modules/react-native",
       :mac_catalyst_enabled => false
     )
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
 
-    # Fix for Boost C++17 compatibility (Required for RN 0.71.8, from analysis)
+    # C++20 compatibility for React Native 0.76+ (required for FuseboxTracer and RN stdlib usage)
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++20'
         config.build_settings['OTHER_CPLUSPLUSFLAGS'] ||= [
           '$(OTHER_CFLAGS)',
           '-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'
@@ -60,73 +60,5 @@ target 'MobileShell' do
       end
     end
 
-    # --- PERMANENT FIX: Inject Synchronous Metro Build Phase ---
-    begin
-      require 'xcodeproj'
-      # We need to modify the main project, not the Pods project.
-      # Find the main .xcodeproj file dynamically
-      project_dir = installer.sandbox.root.dirname
-      project_path = Dir.glob(File.join(project_dir, '*.xcodeproj')).first
-
-      if project_path
-        Pod::UI.puts "Integrating Metro Synchronization into #{File.basename(project_path)}"
-        project = Xcodeproj::Project.open(project_path)
-
-        # Assuming the main target name matches the project name (MobileShell)
-        target_name = File.basename(project_path, '.xcodeproj')
-        target = project.targets.find { |t| t.name == target_name }
-
-        if target
-          phase_name = '[16BitFit] Synchronize Metro'
-
-          # 1. Remove existing custom phase (idempotency)
-          target.shell_script_build_phases.delete_if { |phase| phase.name == phase_name }
-
-          # 2. Remove default asynchronous "Start Packager" phase
-          default_packager_phase = target.shell_script_build_phases.find { |phase| phase.name == 'Start Packager' }
-          if default_packager_phase
-              target.build_phases.delete(default_packager_phase)
-              Pod::UI.puts "Removed default asynchronous 'Start Packager' phase."
-          end
-
-          # 3. Create and inject the new build phase
-          new_phase = project.new(Xcodeproj::Project::Object::PBXShellScriptBuildPhase)
-          new_phase.name = phase_name
-
-          # Path to the script relative to the iOS directory ($SRCROOT).
-          # Using relative paths ensures portability across machines and CI/CD.
-          # ../../../ goes from apps/mobile-shell/ios up to the monorepo root.
-          relative_script_path = "../../../scripts/ensure-metro.sh"
-
-          # The script content: Execute only in Debug configuration
-          new_phase.shell_script = <<-SCRIPT
-if [ "$CONFIGURATION" = "Debug" ]; then
-  echo "Running ensure-metro.sh..."
-  # Ensure script is executable (handles potential git permission issues) and run it
-  chmod +x #{relative_script_path}
-  /bin/sh #{relative_script_path}
-else
-  echo "Skipping Metro synchronization in $CONFIGURATION configuration."
-fi
-          SCRIPT
-
-          new_phase.show_env_vars_in_log = '0' # Keep logs clean
-
-          # 4. Add the new phase at the very beginning
-          target.build_phases.unshift(new_phase)
-
-          project.save
-
-          Pod::UI.puts "Successfully injected '#{phase_name}' build phase."
-        else
-          Pod::UI.warn "Could not find target '#{target_name}' for build phase injection."
-        end
-      else
-        Pod::UI.warn "Could not find .xcodeproj file for build phase injection."
-      end
-    rescue => e
-      Pod::UI.error "Failed to inject build phase: #{e.message}\n#{e.backtrace.join("\n")}"
-    end
-    # --- End of Permanent Fix ---
   end
 end

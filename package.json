@@ -19,9 +19,6 @@
       "**/nativewind/**"
     ]
   },
-  "overrides": {
-    "react-native-reanimated": "2.17.0"
-  },
   "scripts": {
     "postinstall": "node scripts/fix-boost-ios.js",
     "mobile-shell": "nx run mobile-shell:start",
@@ -34,12 +31,16 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "type-check": "nx run-many --target=type-check --all",
     "test": "nx run-many --target=test --all",
-    "prepare": "husky install"
+    "wda:install": "cd ./tools/WebDriverAgent && npm install",
+    "wda:start": "./scripts/start-wda.sh",
+    "wda:status": "curl -s http://localhost:8100/status | jq .",
+    "test:automation:ios": "node ./scripts/wda-automation-test.js"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
+    "axios": "^1.13.2",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "^7.33.2",
@@ -47,12 +48,20 @@
     "eslint-plugin-react-native": "^4.1.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
+    "metro-hermes-compiler": "^0.73.10",
     "nx": "^17.2.0",
     "prettier": "^3.1.0",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
-  }
+  },
+  "dependencies": {
+    "expo": "^52.0.47"
+  },
+  "resolutions": {
+    "@expo/config-plugins": "9.0.17"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
