@@ -17,7 +17,18 @@ import {
   signOut,
 } from '../authService';
 
-describe('Story 1.2: Authentication Integration Tests', () => {
+const shouldSkipSupabaseTests = process.env.JEST_SUPABASE_DISABLED === 'true';
+
+const describeIfSupabaseReady = shouldSkipSupabaseTests ? describe.skip : describe;
+
+if (shouldSkipSupabaseTests) {
+  console.warn(
+    'Skipping Supabase integration tests: EXPO_PUBLIC_SUPABASE_URL/ANON_KEY not configured. ' +
+      'Provide real credentials to enable these tests.'
+  );
+}
+
+describeIfSupabaseReady('Story 1.2: Authentication Integration Tests', () => {
   const timestamp = Date.now();
 
   describe('Deferred Authentication Flow', () => {

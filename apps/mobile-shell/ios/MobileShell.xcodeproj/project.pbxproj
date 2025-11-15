@@ -13,7 +13,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4CC751501749EAD11AA8C9B6 /* libPods-MobileShell.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 875A8CEC2D4323AF85F743A9 /* libPods-MobileShell.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		842986E9374ACD89310AD2B8 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572931EEBB7EAA3989644E90 /* ExpoModulesProvider.swift */; };
 		95E8702E230D7543A0B6250E /* libPods-MobileShell-MobileShellTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4BE31444899BC3CEA3BBB3 /* libPods-MobileShell-MobileShellTests.a */; };
+		C7F1190830CF9F3E7AC61A7F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D19854A5C8C86FC0342F3667 /* PrivacyInfo.xcprivacy */; };
+		E0B5EBCBE474DADCC647C25E /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3CD9C99846FCF3FA8BE9B7 /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,12 +41,15 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MobileShell/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MobileShell/main.m; sourceTree = "<group>"; };
 		24670EB42EB3067D00C618E4 /* MobileShell.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MobileShell.entitlements; path = MobileShell/MobileShell.entitlements; sourceTree = "<group>"; };
+		572931EEBB7EAA3989644E90 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-MobileShell/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		670205C37C5994CFA2DFE62A /* Pods-MobileShell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileShell.release.xcconfig"; path = "Target Support Files/Pods-MobileShell/Pods-MobileShell.release.xcconfig"; sourceTree = "<group>"; };
+		7C3CD9C99846FCF3FA8BE9B7 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-MobileShell-MobileShellTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MobileShell/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		875A8CEC2D4323AF85F743A9 /* libPods-MobileShell.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileShell.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4BE31444899BC3CEA3BBB3 /* libPods-MobileShell-MobileShellTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileShell-MobileShellTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A35375C5D9E94E6E40B3A7BF /* Pods-MobileShell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileShell.debug.xcconfig"; path = "Target Support Files/Pods-MobileShell/Pods-MobileShell.debug.xcconfig"; sourceTree = "<group>"; };
 		A6A264ABB03AA5DA18546287 /* Pods-MobileShell-MobileShellTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileShell-MobileShellTests.debug.xcconfig"; path = "Target Support Files/Pods-MobileShell-MobileShellTests/Pods-MobileShell-MobileShellTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D19854A5C8C86FC0342F3667 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MobileShell/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -94,6 +100,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				D19854A5C8C86FC0342F3667 /* PrivacyInfo.xcprivacy */,
 			);
 			name = MobileShell;
 			sourceTree = "<group>";
@@ -106,6 +113,31 @@
 				8A4BE31444899BC3CEA3BBB3 /* libPods-MobileShell-MobileShellTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6BFDE90083279526429FCC84 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				76F580398BC0C0D2DB1CE554 /* MobileShell */,
+				739AEE3AE92F408F53B30D83 /* MobileShellTests */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
+		739AEE3AE92F408F53B30D83 /* MobileShellTests */ = {
+			isa = PBXGroup;
+			children = (
+				7C3CD9C99846FCF3FA8BE9B7 /* ExpoModulesProvider.swift */,
+			);
+			name = MobileShellTests;
+			sourceTree = "<group>";
+		};
+		76F580398BC0C0D2DB1CE554 /* MobileShell */ = {
+			isa = PBXGroup;
+			children = (
+				572931EEBB7EAA3989644E90 /* ExpoModulesProvider.swift */,
+			);
+			name = MobileShell;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -124,6 +156,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				6BFDE90083279526429FCC84 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -158,6 +191,7 @@
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MobileShellTests" */;
 			buildPhases = (
 				57D25122DE664606D49FF40F /* [CP] Check Pods Manifest.lock */,
+				7E1307771299CD61182456CC /* [Expo] Configure project */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -178,9 +212,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MobileShell" */;
 			buildPhases = (
-				569BFF54214BF5E6FE732AAE /* [16BitFit] Synchronize Metro */,
 				11EB3FE9C02E24FB010AAAA6 /* [CP] Check Pods Manifest.lock */,
+				EB30383B6C1DF7C0332FA285 /* [16BitFit] Synchronize Metro */,
+				FD990128BFA0C6402CFC5B25 /* [16BitFit] Synchronize Metro */,
+				5069B0A288160D55A9C250F1 /* [16BitFit] Synchronize Metro */,
+				661510242DA3862C31E9DFF7 /* [16BitFit] Synchronize Metro */,
+				53F622CB79236FE88DA81BE7 /* [16BitFit] Synchronize Metro */,
+				569BFF54214BF5E6FE732AAE /* [16BitFit] Synchronize Metro */,
 				D9B6988D0AD80424A1631E5A /* [16BitFit] Synchronize Metro */,
+				B30E0CCBA019211515AED5E5 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -247,6 +287,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				C7F1190830CF9F3E7AC61A7F /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +308,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../../../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../../../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli')\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n";
 		};
 		083CEC3D8B94F81B3AA0AEE6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -325,6 +366,44 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobileShell-MobileShellTests/Pods-MobileShell-MobileShellTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5069B0A288160D55A9C250F1 /* [16BitFit] Synchronize Metro */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[16BitFit] Synchronize Metro";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		53F622CB79236FE88DA81BE7 /* [16BitFit] Synchronize Metro */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[16BitFit] Synchronize Metro";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		569BFF54214BF5E6FE732AAE /* [16BitFit] Synchronize Metro */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,6 +445,44 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		661510242DA3862C31E9DFF7 /* [16BitFit] Synchronize Metro */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[16BitFit] Synchronize Metro";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7E1307771299CD61182456CC /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MobileShell-MobileShellTests/expo-configure-project.sh\"\n";
+		};
 		8A636F677B270B781B791FDE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,7 +500,45 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobileShell-MobileShellTests/Pods-MobileShell-MobileShellTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B30E0CCBA019211515AED5E5 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MobileShell/expo-configure-project.sh\"\n";
+		};
 		D9B6988D0AD80424A1631E5A /* [16BitFit] Synchronize Metro */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[16BitFit] Synchronize Metro";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EB30383B6C1DF7C0332FA285 /* [16BitFit] Synchronize Metro */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -419,6 +574,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobileShell/Pods-MobileShell-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FD990128BFA0C6402CFC5B25 /* [16BitFit] Synchronize Metro */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[16BitFit] Synchronize Metro";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -427,6 +601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* MobileShellTests.m in Sources */,
+				E0B5EBCBE474DADCC647C25E /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +611,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				842986E9374ACD89310AD2B8 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,7 +636,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = MobileShellTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -471,8 +647,10 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileShell.app/MobileShell";
 			};
 			name = Debug;
@@ -484,7 +662,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = MobileShellTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,8 +673,10 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileShell.app/MobileShell";
 			};
 			name = Release;
@@ -522,6 +702,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileShell;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -550,6 +731,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileShell;
 				SWIFT_VERSION = 5.0;
@@ -562,7 +744,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -606,7 +788,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -624,8 +806,15 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				REACT_NATIVE_PATH = "${PODS_ROOT}/../../../../node_modules/react-native";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_VERSION = 5.0;
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -634,7 +823,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -671,7 +860,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -688,8 +877,14 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				REACT_NATIVE_PATH = "${PODS_ROOT}/../../../../node_modules/react-native";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

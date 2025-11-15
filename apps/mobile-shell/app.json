@@ -1,4 +1,34 @@
 {
-  "name": "MobileShell",
-  "displayName": "MobileShell"
+  "expo": {
+    "name": "16BitFit",
+    "slug": "16bitfit-v3",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "sdkVersion": "52.0.0",
+    "scheme": "sixteenbitfitv3",
+    "jsEngine": "hermes",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#9BBC0F"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sixteenbitfit.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#9BBC0F"
+      },
+      "package": "com.sixteenbitfit.app"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-asset",
+      "expo-splash-screen"
+    ]
+  }
 }

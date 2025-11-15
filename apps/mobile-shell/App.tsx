@@ -1,66 +1,59 @@
 /**
  * 16BitFit Mobile Shell
  * Main Application Entry Point
- * Story 1.3: Integrated with health data sync on launch and foreground
+ * Story 1.4: Onboarding Flow with Custom Fonts
  */
-import React, { useEffect, useRef } from 'react';
-import { AppState, AppStateStatus } from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { RootNavigator } from './src/navigation';
-import { syncRecentData } from './src/services/health/syncService';
+import { NavigationContainer } from '@react-navigation/native';
+import * as SplashScreen from 'expo-splash-screen';
+import { useCustomFonts } from '@/hooks/useFonts';
+import OnboardingNavigator from '@/screens/onboarding/navigation/OnboardingNavigator';
 
-// Throttle sync to prevent excessive API calls
-const SYNC_THROTTLE_MS = 15 * 60 * 1000; // 15 minutes
+// Keep the splash screen visible while we fetch resources.
+// This must be called globally before the component renders.
+SplashScreen.preventAutoHideAsync();
 
-function App(): JSX.Element {
-  const lastSyncTime = useRef<number>(0);
-  const appState = useRef(AppState.currentState);
+function App(): JSX.Element | null {
+  const { fontsLoaded, error } = useCustomFonts();
 
-  // Throttled sync function
-  const performSync = async () => {
-    const now = Date.now();
-    if (now - lastSyncTime.current < SYNC_THROTTLE_MS) {
-      console.log('Sync throttled - too soon since last sync');
-      return;
-    }
-
-    try {
-      lastSyncTime.current = now;
-      await syncRecentData();
-      console.log('Health data sync completed');
-    } catch (error) {
-      console.error('Health data sync failed:', error);
-    }
-  };
-
-  // Initial sync on app launch
   useEffect(() => {
-    performSync();
-  }, []);
+    if (error) {
+      console.error('Error loading fonts:', error);
+      // In production, log to monitoring service (e.g., Sentry)
+    }
+  }, [error]);
 
-  // Sync when app comes to foreground
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState: AppStateStatus) => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        console.log('App has come to foreground - syncing health data');
-        performSync();
-      }
-      appState.current = nextAppState;
-    });
+  // Callback to hide the splash screen once resources are ready or an error occurred.
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || error) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, error]);
 
-    return () => {
-      subscription.remove();
-    };
-  }, []);
+  // If fonts are not loaded and no error occurred, return null.
+  // The splash screen remains visible.
+  if (!fontsLoaded && !error) {
+    return null;
+  }
 
+  // Once loaded, render the app. We attach the layout handler to a root View.
   return (
     <SafeAreaProvider>
-      <RootNavigator />
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <NavigationContainer>
+          <OnboardingNavigator />
+        </NavigationContainer>
+      </View>
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;
