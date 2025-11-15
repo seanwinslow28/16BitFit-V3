@@ -2,6 +2,24 @@
 
 A gamified fitness application combining React Native mobile shell with Phaser 3 game engine for an immersive retro gaming experience that transforms workouts into epic boss battles.
 
+## 🎨 DESIGN SYSTEM - CRITICAL NOTICE
+
+**⚠️ OFFICIAL COLOR PALETTE: LCD Screen-Only Theme**
+
+This project uses the **LCD Screen-Only 4-color palette** from the MagicPath.ai prompt library (Theme 6).
+
+**The 4 Official Colors:**
+- `#9BBC0F` - Neon grass glow (lightest)
+- `#0F380F` - Deep forest shadow (darkest)
+- `#8BAC0F` - Lime highlight (medium-light)
+- `#306230` - Pine border (medium-dark)
+
+**📋 Documentation:** See [`docs/design-system/design-tokens-LCD.md`](docs/design-system/design-tokens-LCD.md) for complete specifications.
+
+**🚫 Do NOT reference "DMG Palette" or "DMG-Gameboy-Palette.md"** - those are deprecated. Always use the LCD Screen-Only theme.
+
+---
+
 ## Project Structure
 
 This is an **Nx-managed monorepo** with the following structure:
@@ -132,15 +150,51 @@ rm -rf node_modules/nativewind/node_modules/react-native-reanimated
 
 ### 4. Environment Variables
 
-Copy the `.env.example` file to `.env` and fill in your credentials:
+#### Mobile Shell Environment Setup
+
+Configure environment variables for the React Native app:
 
 ```bash
+# Navigate to mobile-shell directory
+cd apps/mobile-shell
+
+# Copy environment template
+cp .env.example .env
+
+# Edit .env with your Supabase credentials
+# Required variables:
+# - EXPO_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+# - EXPO_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
+```
+
+**Important Notes:**
+- The `.env` file is gitignored and should NEVER be committed
+- Variables must use the `EXPO_PUBLIC_` prefix to be available in the app
+- These are PUBLIC variables (embedded in compiled app bundle)
+- For production builds, use EAS Secrets instead of `.env` file
+
+**Production Deployment:**
+```bash
+# Set production secrets via EAS
+eas secret:push --scope project EXPO_PUBLIC_SUPABASE_URL
+eas secret:push --scope project EXPO_PUBLIC_SUPABASE_ANON_KEY
+
+# List configured secrets
+eas secret:list
+```
+
+See: [Expo Environment Variables Guide](https://docs.expo.dev/guides/environment-variables/)
+
+#### Root Environment Variables (Optional)
+
+For MCP connectors and development tools, you can also configure root-level environment variables:
+
+```bash
+# Copy root environment template (if exists)
 cp .env.example .env
 ```
 
-Required variables:
-- `SUPABASE_URL` - Your Supabase project URL
-- `SUPABASE_ANON_KEY` - Your Supabase anonymous key
+Optional root variables:
 - `GITHUB_TOKEN` - GitHub Personal Access Token (for MCP connector)
 - `FIRECRAWL_API_KEY` - Firecrawl API key (for documentation research)
 
