@@ -95,3 +95,46 @@ vendor/bundle/
 
 # Migration staging (local reference only - not committed to git)
 docs/archive/MIGRATION_STAGING/
+
+# Backup files (comprehensive)
+*.backup.*
+*.bak
+*.tmp
+*.temp
+*.old
+*.orig
+
+# SQL test/seed data (may contain passwords)
+**/test-data*.sql
+**/seed-data*.sql
+
+# Supabase temp/cache files
+supabase/.temp/
+supabase/.branches/
+
+# Implementation and debug logs
+docs/implementation-logs/
+**/*.log
+!**/changelog*.log
+
+# Sensitive configuration (use environment variables instead)
+apps/mobile-shell/src/config/env.ts
+**/config/secrets.*
+
+# Test fixtures with potential PII
+**/fixtures/
+**/test-fixtures/
+**/*-test-data.*
+
+# Archive and duplicate folders
+**/archive/
+**/duplicates/
+**/old/
+**/COPIED FILES FOR DEEP THINK/
+
+# IDE and tool-specific
+.cursor/
+
+# Health data and PII
+**/health-data-samples/
+**/user-data-exports/
