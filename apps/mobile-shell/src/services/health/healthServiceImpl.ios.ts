@@ -4,15 +4,20 @@
  * Story 1.3 - HealthKit/Connect Integration & Step Sync
  */
 
-import { IHealthPlatformService, PermissionStatus, StepDataPoint } from '../../types/health.types';
-import { ServiceUnavailableError } from '../../types/health.errors';
-import AppleHealthKit, {
-  HealthKitPermissions,
-} from 'react-native-health';
+import {
+  IHealthPlatformService,
+  PermissionStatus,
+  StepDataPoint,
+} from '../../types/health.types';
+import {ServiceUnavailableError} from '../../types/health.errors';
+import AppleHealthKit, {HealthKitPermissions} from 'react-native-health';
 
 class HealthServiceIOS implements IHealthPlatformService {
   private readonly permissions: HealthKitPermissions = {
-    read: ['StepCount'],
+    permissions: {
+      read: [AppleHealthKit.Constants.Permissions.StepCount],
+      write: [], // Empty array - 16BitFit is read-only, no write permissions needed
+    },
   };
 
   /**
@@ -21,8 +26,16 @@ class HealthServiceIOS implements IHealthPlatformService {
    */
   async isAvailable(): Promise<boolean> {
     try {
-      const available = await AppleHealthKit.isAvailable();
-      return available;
+      return new Promise(resolve => {
+        AppleHealthKit.isAvailable((error, available) => {
+          if (error) {
+            console.warn('HealthKit availability check failed:', error);
+            resolve(false);
+          } else {
+            resolve(available);
+          }
+        });
+      });
     } catch (error) {
       console.warn('HealthKit availability check failed:', error);
       return false;
@@ -42,7 +55,7 @@ class HealthServiceIOS implements IHealthPlatformService {
       }
 
       // Request permissions
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         AppleHealthKit.initHealthKit(this.permissions, (error: string) => {
           if (error) {
             console.error('HealthKit permission request failed:', error);
@@ -64,12 +77,17 @@ class HealthServiceIOS implements IHealthPlatformService {
    * @param endDate - End of range (inclusive)
    * @returns Array of daily step data points
    */
-  async fetchDailySteps(startDate: Date, endDate: Date): Promise<StepDataPoint[]> {
+  async fetchDailySteps(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<StepDataPoint[]> {
     try {
       // Check availability and permissions first
       const available = await this.isAvailable();
       if (!available) {
-        throw new ServiceUnavailableError('HealthKit unavailable on this device');
+        throw new ServiceUnavailableError(
+          'HealthKit unavailable on this device',
+        );
       }
 
       // Fetch step samples - getDailyStepCountSamples for daily aggregation
@@ -79,28 +97,31 @@ class HealthServiceIOS implements IHealthPlatformService {
       };
 
       return new Promise((resolve, reject) => {
-        AppleHealthKit.getDailyStepCountSamples(options, (error: string, results: any[]) => {
-          if (error) {
-            console.error('HealthKit step fetch failed:', error);
-            reject(new Error(error));
-            return;
-          }
+        AppleHealthKit.getDailyStepCountSamples(
+          options,
+          (error: string, results: any[]) => {
+            if (error) {
+              console.error('HealthKit step fetch failed:', error);
+              reject(new Error(error));
+              return;
+            }
 
-          // Transform to our data format
-          const dataPoints: StepDataPoint[] = results.map(sample => {
-            // Extract date in YYYY-MM-DD format
-            const date = new Date(sample.startDate);
-            const dateString = date.toISOString().split('T')[0];
+            // Transform to our data format
+            const dataPoints: StepDataPoint[] = results.map(sample => {
+              // Extract date in YYYY-MM-DD format
+              const date = new Date(sample.startDate);
+              const dateString = date.toISOString().split('T')[0];
 
-            return {
-              date: dateString,
-              stepCount: Math.round(sample.value),
-              source: 'HealthKit' as const,
-            };
-          });
+              return {
+                date: dateString,
+                stepCount: Math.round(sample.value),
+                source: 'HealthKit' as const,
+              };
+            });
 
-          resolve(dataPoints);
-        });
+            resolve(dataPoints);
+          },
+        );
       });
     } catch (error) {
       console.error('HealthKit step fetch failed:', error);
