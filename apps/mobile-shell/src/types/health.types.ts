@@ -32,6 +32,6 @@ export interface IHealthPlatformService {
 // Sync status for UI
 export interface SyncStatus {
   isSyncing: boolean;
-  lastSyncTime: Date | null;
+  lastSyncTime: string | null;
   syncError: string | null;
 }

@@ -14,13 +14,19 @@
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+- (NSURL *)bundleURL
 {
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@".expo/.virtual-metro-entry"];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+  // Old arch compatibility: reuse bundleURL logic above
+  return [self bundleURL];
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.

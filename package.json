@@ -20,7 +20,6 @@
     ]
   },
   "scripts": {
-    "postinstall": "node scripts/fix-boost-ios.js",
     "mobile-shell": "nx run mobile-shell:start",
     "ios": "nx run mobile-shell:run-ios",
     "android": "nx run mobile-shell:run-android",
@@ -46,9 +45,11 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-native": "^4.1.0",
+    "hermes-parser": "^0.32.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
-    "metro-hermes-compiler": "^0.73.10",
+    "metro": "0.81.5",
+    "metro-hermes-compiler": "^0.76.0",
     "nx": "^17.2.0",
     "prettier": "^3.1.0",
     "typescript": "^5.3.3"

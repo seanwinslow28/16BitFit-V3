@@ -15,7 +15,7 @@
 1. Go to: https://supabase.com/dashboard/project/noxwzelpibuytttlgztq/auth/providers
 2. Click on **Google** provider
 3. Enable the provider
-4. Add redirect URL: `com.16bitfit://auth/callback`
+4. Add redirect URL: `sixteenbitfitv3://auth/callback`
 5. Configure Google OAuth credentials (or use test mode if available)
 6. Save configuration
 
@@ -91,7 +91,7 @@ npx react-native run-android
 **Steps:**
 1. Complete Google sign-in in the browser/WebView
 2. **Expected:**
-   - After successful authentication, the browser/WebView redirects to: `com.16bitfit://auth/callback?...`
+   - After successful authentication, the browser/WebView redirects to: `sixteenbitfitv3://auth/callback?...`
    - The iOS app automatically opens and comes to foreground
    - The sign-in screen disappears (or navigates to home)
 

@@ -2,30 +2,34 @@
  * 16BitFit Design Tokens
  *
  * Core visual language defining colors, spacing, borders, and shadows.
- * Based on DMG Classic Game Boy palette for authentic retro aesthetic.
+ * Based on LCD Screen-Only 4-color palette for authentic retro aesthetic.
+ *
+ * **Official Palette:** See docs/design-system/design-tokens-LCD.md
+ * **4 Colors:** #9BBC0F (lightest), #0F380F (darkest), #8BAC0F (medium-light), #306230 (medium-dark)
  */
 
 import { ViewStyle } from 'react-native';
 
 // ─────────────────────────────────────────────────────────
-// Color Palette - DMG Classic (Original Game Boy)
+// Color Palette - LCD Screen-Only Theme (4 colors)
 // ─────────────────────────────────────────────────────────
 
 export const tokens = {
   colors: {
-    // Background colors
+    // Background colors (LCD Screen-Only theme)
     background: {
-      primary: '#0F380F',    // Deep forest shadow - Screen background
+      primary: '#9BBC0F',    // Neon grass glow (lightest) - Screen background
+      secondary: '#8BAC0F',  // Lime highlight - Alternate backgrounds
       elevated: '#306230',   // Pine border - Cards, modals
-      overlay: '#0F380Fcc',  // 80% opacity overlay
+      overlay: '#0F380Fcc',  // 80% opacity deep forest shadow - Overlays
     },
 
-    // Text colors
+    // Text colors (LCD Screen-Only theme)
     text: {
-      primary: '#9BBC0F',    // Neon grass glow - Body text, headers
-      secondary: '#8BAC0F',  // Lime highlight - Muted text, captions
-      tertiary: '#306230',   // Pine border - Very muted text
-      inverse: '#0F380F',    // Text on light backgrounds
+      primary: '#0F380F',    // Deep forest shadow (darkest) - Body text, headers
+      secondary: '#306230',  // Pine border - Muted text, captions
+      muted: '#8BAC0F',      // Lime highlight - Helper text, hints
+      inverse: '#9BBC0F',    // Neon grass glow - Text on dark backgrounds
     },
 
     // Border colors
@@ -35,20 +39,46 @@ export const tokens = {
       focus: '#9BBC0F',      // Focus rings, interactive states
     },
 
-    // Interactive element colors
+    // Button colors
+    button: {
+      primary: '#8BAC0F',      // Lime highlight - Primary buttons
+      primaryText: '#0F380F',  // Deep forest - Text on primary buttons
+      secondary: '#306230',    // Pine border - Secondary buttons
+      secondaryText: '#9BBC0F', // Neon grass - Text on secondary buttons
+    },
+
+    // Input field colors
+    input: {
+      background: '#9BBC0F',   // Neon grass - Input background
+      border: '#306230',       // Pine border - Input border
+      text: '#0F380F',         // Deep forest - Input text
+      placeholder: '#8BAC0F',  // Lime highlight - Placeholder text
+      focus: '#8BAC0F',        // Lime highlight - Focus ring
+    },
+
+    // Interactive states
+    states: {
+      active: '#8BAC0F',       // Lime highlight - Active elements
+      inactive: '#306230',     // Pine border - Inactive elements
+      disabled: '#306230',     // Pine border - Disabled elements (use with opacity)
+      hover: '#8BAC0F',        // Lime highlight - Hover states
+    },
+
+    // Feedback colors
+    feedback: {
+      success: '#8BAC0F',      // Success messages, achievements
+      warning: '#9BBC0F',      // Warnings, attention states
+      error: '#306230',        // Errors (muted in LCD palette)
+      errorText: '#9BBC0F',    // Neon grass - Error text on dark backgrounds
+      info: '#8BAC0F',         // Info messages, tooltips
+    },
+
+    // Legacy interactive tokens (deprecated - use button/states instead)
     interactive: {
       primary: '#8BAC0F',    // Primary buttons, CTAs
       hover: '#9BBC0F',      // Hover states
       active: '#306230',     // Pressed states
       disabled: '#306230',   // Disabled elements
-    },
-
-    // Feedback colors
-    feedback: {
-      success: '#8BAC0F',    // Success messages, achievements
-      warning: '#9BBC0F',    // Warnings, attention states
-      error: '#306230',      // Errors (muted in DMG palette)
-      info: '#8BAC0F',       // Info messages, tooltips
     },
 
     // Raw DMG palette values (for reference)

@@ -15,6 +15,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		842986E9374ACD89310AD2B8 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572931EEBB7EAA3989644E90 /* ExpoModulesProvider.swift */; };
 		95E8702E230D7543A0B6250E /* libPods-MobileShell-MobileShellTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4BE31444899BC3CEA3BBB3 /* libPods-MobileShell-MobileShellTests.a */; };
+		B7F55F6F2E6B4EED00C4D4BC /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7F55F6E2E6B4EED00C4D4BC /* SplashScreen.storyboard */; };
 		C7F1190830CF9F3E7AC61A7F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D19854A5C8C86FC0342F3667 /* PrivacyInfo.xcprivacy */; };
 		E0B5EBCBE474DADCC647C25E /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3CD9C99846FCF3FA8BE9B7 /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +50,8 @@
 		8A4BE31444899BC3CEA3BBB3 /* libPods-MobileShell-MobileShellTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileShell-MobileShellTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A35375C5D9E94E6E40B3A7BF /* Pods-MobileShell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileShell.debug.xcconfig"; path = "Target Support Files/Pods-MobileShell/Pods-MobileShell.debug.xcconfig"; sourceTree = "<group>"; };
 		A6A264ABB03AA5DA18546287 /* Pods-MobileShell-MobileShellTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileShell-MobileShellTests.debug.xcconfig"; path = "Target Support Files/Pods-MobileShell-MobileShellTests/Pods-MobileShell-MobileShellTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D19854A5C8C86FC0342F3667 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MobileShell/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B7F55F6E2E6B4EED00C4D4BC /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = MobileShell/SplashScreen.storyboard; sourceTree = "<group>"; };
+		D19854A5C8C86FC0342F3667 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = MobileShell/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				B7F55F6E2E6B4EED00C4D4BC /* SplashScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				D19854A5C8C86FC0342F3667 /* PrivacyInfo.xcprivacy */,
 			);
@@ -214,12 +217,6 @@
 			buildPhases = (
 				11EB3FE9C02E24FB010AAAA6 /* [CP] Check Pods Manifest.lock */,
 				EB30383B6C1DF7C0332FA285 /* [16BitFit] Synchronize Metro */,
-				FD990128BFA0C6402CFC5B25 /* [16BitFit] Synchronize Metro */,
-				5069B0A288160D55A9C250F1 /* [16BitFit] Synchronize Metro */,
-				661510242DA3862C31E9DFF7 /* [16BitFit] Synchronize Metro */,
-				53F622CB79236FE88DA81BE7 /* [16BitFit] Synchronize Metro */,
-				569BFF54214BF5E6FE732AAE /* [16BitFit] Synchronize Metro */,
-				D9B6988D0AD80424A1631E5A /* [16BitFit] Synchronize Metro */,
 				B30E0CCBA019211515AED5E5 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -243,7 +240,8 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -285,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7F55F6F2E6B4EED00C4D4BC /* SplashScreen.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C7F1190830CF9F3E7AC61A7F /* PrivacyInfo.xcprivacy in Resources */,
@@ -366,63 +365,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobileShell-MobileShellTests/Pods-MobileShell-MobileShellTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5069B0A288160D55A9C250F1 /* [16BitFit] Synchronize Metro */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[16BitFit] Synchronize Metro";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		53F622CB79236FE88DA81BE7 /* [16BitFit] Synchronize Metro */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[16BitFit] Synchronize Metro";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		569BFF54214BF5E6FE732AAE /* [16BitFit] Synchronize Metro */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[16BitFit] Synchronize Metro";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		57D25122DE664606D49FF40F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,25 +385,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		661510242DA3862C31E9DFF7 /* [16BitFit] Synchronize Metro */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[16BitFit] Synchronize Metro";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7E1307771299CD61182456CC /* [Expo] Configure project */ = {
@@ -519,25 +442,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MobileShell/expo-configure-project.sh\"\n";
 		};
-		D9B6988D0AD80424A1631E5A /* [16BitFit] Synchronize Metro */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[16BitFit] Synchronize Metro";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		EB30383B6C1DF7C0332FA285 /* [16BitFit] Synchronize Metro */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -546,15 +450,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/../scripts/ensure-metro.sh",
 			);
 			name = "[16BitFit] Synchronize Metro";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/metro-sync.stamp",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
+			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\n  touch \"${DERIVED_FILE_DIR}/metro-sync.stamp\"\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F93F5CE93867D1E6B0FB7539 /* [CP] Embed Pods Frameworks */ = {
@@ -572,25 +478,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobileShell/Pods-MobileShell-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD990128BFA0C6402CFC5B25 /* [16BitFit] Synchronize Metro */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[16BitFit] Synchronize Metro";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  echo \"Running ensure-metro.sh...\"\n  # Ensure script is executable (handles potential git permission issues) and run it\n  chmod +x ../../../scripts/ensure-metro.sh\n  /bin/sh ../../../scripts/ensure-metro.sh\nelse\n  echo \"Skipping Metro synchronization in $CONFIGURATION configuration.\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -743,6 +630,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -770,8 +658,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -789,6 +679,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -822,6 +714,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -849,8 +742,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -861,6 +756,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -883,6 +780,7 @@
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;

@@ -27,7 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.16bitfit</string>
+				<string>sixteenbitfitv3</string>
 			</array>
 		</dict>
 	</array>
@@ -51,9 +51,9 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>16BitFit may write workout data to your Health app to keep your fitness data synchronized.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>16BitFit uses your location to personalize real-world challenges and sync outdoor sessions with your progress.</string>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -1,5 +1,12 @@
+ENV['NODE_PATH'] = [
+  File.expand_path("../../../node_modules", __dir__),
+  File.expand_path("../node_modules", __dir__),
+  ENV['NODE_PATH'],
+].compact.join(File::PATH_SEPARATOR)
+
+react_native_path = File.expand_path("../../../node_modules/react-native", __dir__)
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
-require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
+require File.join(react_native_path, "scripts/react_native_pods")
 
 platform :ios, '15.1'
 prepare_react_native_project!
@@ -49,6 +56,19 @@ target 'MobileShell' do
       :mac_catalyst_enabled => false
     )
 
+    # Normalize ReactCodegen script so paths with spaces (e.g., "Claude Desktop") build correctly.
+    installer.pods_project.targets.each do |target|
+      target.build_phases.each do |phase|
+        next unless phase.respond_to?(:shell_script)
+        script = phase.shell_script.to_s
+        next if script.empty? || !script.include?('with-environment.sh')
+        normalized = script.gsub('/bin/sh -c "$WITH_ENVIRONMENT $SCRIPT_PHASES_SCRIPT"', '"$WITH_ENVIRONMENT" "$SCRIPT_PHASES_SCRIPT"')
+        next if normalized == script
+        phase.shell_script = normalized
+      end
+    end
+    installer.pods_project.save
+
     # C++20 compatibility for React Native 0.76+ (required for FuseboxTracer and RN stdlib usage)
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
@@ -57,6 +77,21 @@ target 'MobileShell' do
           '$(OTHER_CFLAGS)',
           '-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION'
         ]
+      end
+    end
+
+    # Fix header search paths for React-RCTFabric to find RCTThirdPartyFabricComponentsProvider.h
+    installer.pods_project.targets.each do |target|
+      if target.name == 'React-RCTFabric'
+        target.build_configurations.each do |config|
+          config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+          # Add React Native Fabric source directory to header search paths
+          react_native_fabric_path = File.join(react_native_path, 'React/Fabric')
+          config.build_settings['HEADER_SEARCH_PATHS'] << "\"#{react_native_fabric_path}\""
+          config.build_settings['HEADER_SEARCH_PATHS'] << '"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTFabric/React_RCTFabric.framework/Headers"'
+          config.build_settings['HEADER_SEARCH_PATHS'] << '"${PODS_ROOT}/Headers/Public/React-RCTFabric"'
+          config.build_settings['HEADER_SEARCH_PATHS'] << '"${PODS_ROOT}/Headers/Private/React-RCTFabric"'
+        end
       end
     end
 

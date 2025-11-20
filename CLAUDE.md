@@ -116,27 +116,30 @@ npx supabase stop
 
 ## Design System
 
-### Color Palette (DMG Game Boy LCD)
+### Color Palette (LCD Screen-Only 4-Color Theme)
 
 **All components MUST use these exact 4 colors:**
 
 ```typescript
 // From apps/mobile-shell/src/design-system/tokens.ts
+// Official Palette: docs/design-system/design-tokens-LCD.md
 export const colors = {
   dmg: {
-    darkest: '#0F380F',   // Darkest green (shadows, text)
-    dark: '#306230',      // Dark green (borders, outlines)
-    light: '#8BAC0F',     // Light green (highlights, active states)
-    lightest: '#9BBC0F',  // Lightest green (backgrounds, base)
+    lightest: '#9BBC0F',  // Neon grass glow (backgrounds, inverse text)
+    light: '#8BAC0F',     // Lime highlight (buttons, CTAs, focus states)
+    dark: '#306230',      // Pine border (borders, secondary text)
+    darkest: '#0F380F',   // Deep forest shadow (text, shadows)
   },
 };
 ```
 
-**Usage Rules:**
-- Background: `lightest` (#9BBC0F)
-- Text: `darkest` (#0F380F)
-- Borders: `dark` (#306230)
-- Highlights/Active: `light` (#8BAC0F)
+**Usage Rules (LCD Screen-Only Theme):**
+- Background: `lightest` (#9BBC0F) - `tokens.colors.background.primary`
+- Text: `darkest` (#0F380F) - `tokens.colors.text.primary`
+- Borders: `dark` (#306230) - `tokens.colors.border.default`
+- Buttons/CTAs: `light` (#8BAC0F) - `tokens.colors.button.primary`
+
+**📋 Full Documentation:** [docs/design-system/design-tokens-LCD.md](docs/design-system/design-tokens-LCD.md)
 
 ### Typography
 
@@ -195,41 +198,41 @@ export const easing = {
 
 ## Component Implementation Guidelines
 
-### 1. Atomic Components (PRIORITY)
+### 1. Atomic Components - ✅ COMPLETE
 
-**Status:** 5 implemented, 5 remaining
+**Status:** 10/10 implemented (100% complete)
 
-**Implemented:**
+**All Components Implemented:**
 - ✅ [PixelButton](apps/mobile-shell/src/components/atoms/PixelButton/index.tsx)
 - ✅ [PixelText](apps/mobile-shell/src/components/atoms/PixelText/index.tsx)
 - ✅ [PixelInput](apps/mobile-shell/src/components/atoms/PixelInput/index.tsx)
 - ✅ [PixelSprite](apps/mobile-shell/src/components/atoms/PixelSprite/index.tsx)
 - ✅ [PixelBorder](apps/mobile-shell/src/components/atoms/PixelBorder/index.tsx)
-
-**To Implement:**
-- ⏳ PixelIcon (SVG icons, 16/20/24/32px)
-- ⏳ PixelDivider (Horizontal separator, 2/3/4px thickness)
-- ⏳ PixelBadge (Notification badges with count)
-- ⏳ PixelProgressBar (SF2-style health bars)
-- ⏳ PixelCheckbox (Toggle with bounce animation)
+- ✅ [PixelIcon](apps/mobile-shell/src/components/atoms/PixelIcon/index.tsx) - 10 icons, 4 sizes
+- ✅ [PixelDivider](apps/mobile-shell/src/components/atoms/PixelDivider/index.tsx) - 2/3/4px thickness
+- ✅ [PixelBadge](apps/mobile-shell/src/components/atoms/PixelBadge/index.tsx) - Notification badges
+- ✅ [PixelProgressBar](apps/mobile-shell/src/components/atoms/PixelProgressBar/index.tsx) - SF2-style health bars
+- ✅ [PixelCheckbox](apps/mobile-shell/src/components/atoms/PixelCheckbox/index.tsx) - Toggle with animations
 
 **Full specs:** [docs/design-system/atomic-components.md](docs/design-system/atomic-components.md)
 
-### 2. Molecular Components (PRIORITY)
+### 2. Molecular Components - ✅ COMPLETE
 
-**Status:** 0 implemented, 10 documented
+**Status:** 10/10 implemented (100% complete) 🎉
 
-**To Implement:**
-- ⏳ ArchetypeCard (160x200px selection card with sprite)
-- ⏳ FormField (Label + Input + Validation + Error)
-- ⏳ ProgressIndicator (Step dots: "Step X of Y")
-- ⏳ ToastNotification (Slide-in alerts)
-- ⏳ ProfileHeader (Avatar + Username + Metadata)
-- ⏳ StatBar (Labeled progress: "Strength 75/100")
-- ⏳ ActionSheet (Bottom sheet modal)
-- ⏳ EmptyState (Icon + Title + Description + CTA)
-- ⏳ LoadingSpinner (Rotating pixel icon)
-- ⏳ ConfirmDialog (Confirmation modal)
+**All Components Implemented:**
+- ✅ [ArchetypeCard](apps/mobile-shell/src/components/molecules/ArchetypeCard/index.tsx) - 176 lines, selection animations
+- ✅ [FormField](apps/mobile-shell/src/components/molecules/FormField/index.tsx) - 201 lines, validation & error states
+- ✅ [ProgressIndicator](apps/mobile-shell/src/components/molecules/ProgressIndicator/index.tsx) - 120 lines, step dots
+- ✅ [ToastNotification](apps/mobile-shell/src/components/molecules/ToastNotification/index.tsx) - 156 lines, slide-in animations
+- ✅ [ProfileHeader](apps/mobile-shell/src/components/molecules/ProfileHeader/index.tsx) - 101 lines, avatar & stats
+- ✅ [StatBar](apps/mobile-shell/src/components/molecules/StatBar/index.tsx) - 99 lines, labeled progress bars
+- ✅ [ActionSheet](apps/mobile-shell/src/components/molecules/ActionSheet/index.tsx) - 203 lines, bottom sheet modal
+- ✅ [EmptyState](apps/mobile-shell/src/components/molecules/EmptyState/index.tsx) - 106 lines, icon + message + CTA
+- ✅ [LoadingSpinner](apps/mobile-shell/src/components/molecules/LoadingSpinner/index.tsx) - 121 lines, rotating icon
+- ✅ [ConfirmDialog](apps/mobile-shell/src/components/molecules/ConfirmDialog/index.tsx) - 133 lines, confirmation modal
+
+**Total:** ~1,516 lines of production-ready molecular components
 
 **Full specs:** [docs/design-system/molecular-components.md](docs/design-system/molecular-components.md)
 
@@ -259,6 +262,88 @@ export const easing = {
 - `accessibilityHint` for complex interactions
 - Minimum 44x44 touch targets
 - WCAG AA contrast (handled by DMG palette)
+
+---
+
+## Frontend UI/UX Workflow: MagicPath.ai
+
+### 🎨 Conversational Prototyping for All Screens
+
+**IMPORTANT:** For all frontend UI/UX work, we use **MagicPath.ai** as our conversational prototyping canvas instead of directly writing React Native JSX.
+
+**MagicPath.ai** is a designer's co-pilot that combines:
+- **Natural language prompts** to generate screens/components
+- **Visual editing post-generation** (Figma-like infinite canvas)
+- **Code export** to React/HTML/CSS for developer handoff
+- **Design system integration** (imports our DMG CSS themes)
+
+### Why MagicPath.ai?
+
+✅ **Rapid Iteration:** Generate full screens from text prompts in seconds
+✅ **Visual Control:** Drag, resize, and refine components after generation
+✅ **DMG Compliance:** Enforces our strict 4-color palette via CSS themes
+✅ **Production React Code:** Exports clean React components with our atomic components
+✅ **Designer-Friendly:** No Figma friction - export to code directly
+
+### MagicPath.ai Workflow
+
+**Step 1: Choose Theme**
+- **For Production Development:** Use **Theme 6: LCD Screen Content** (329×584pt viewport)
+- **For Presentations/Marketing:** Use **Theme 5: Game Boy Shell Mockup** (393×852pt viewport)
+
+**Step 2: Write Prompts**
+- Reference existing prompts in [`docs/design-system/magicpath-prompt-library.md`](docs/design-system/magicpath-prompt-library.md)
+- Reuse components with `@PixelButton`, `@ArchetypeCard` notation
+- Specify layout, spacing, and interactions in natural language
+
+**Step 3: Generate & Refine**
+- MagicPath generates the UI from your prompt
+- Visually edit elements (drag, resize, adjust spacing)
+- Iterate with follow-up prompts: "Move the button down 20px", "Make text darker"
+
+**Step 4: Export Code**
+- Export as React/HTML/CSS
+- Integrate into `apps/mobile-shell/src/screens/`
+- Replace HTML with our atomic components (PixelButton, PixelText, etc.)
+
+### Existing Prompts (Story 1.4 - Onboarding)
+
+All prompts for Stories 1.1-1.4 are documented in:
+- **Full Library:** [`docs/design-system/magicpath-prompt-library.md`](docs/design-system/magicpath-prompt-library.md)
+
+**Example: WelcomeScreen Prompt**
+```
+Create a GameBoy-inspired welcome screen for 16BitFit fitness app with DMG LCD palette.
+
+Layout (329×584pt LCD screen):
+- Hero text "16BITFIT" (Press Start 2P, 24px, #0F380F)
+- Tagline "Fitness Battles Fueled by Your Steps" (Montserrat, 14px)
+- Primary CTA button "Start Your Journey" (280px wide, #8BAC0F background)
+- Progress dots at bottom (1 of 3, active = #8BAC0F, inactive = #306230)
+
+Design System:
+- Background: #9BBC0F (lightest green)
+- Text: #0F380F (darkest green)
+- Button background: #8BAC0F (lime highlight)
+- 3px borders, zero border-radius
+- 4×4px pixel shadows (no blur)
+```
+
+### Future Agents: Add New Screen Prompts Here
+
+When implementing new stories (1.5+), follow this pattern:
+1. Write MagicPath.ai prompt for the screen (reference prompt library for style)
+2. Add prompt to `docs/design-system/magicpath-prompt-library.md`
+3. Generate in MagicPath with LCD Screen Content theme
+4. Export React code
+5. Integrate into `apps/mobile-shell/src/screens/`
+
+### 📚 Deep Research Documentation
+
+Complete MagicPath.ai documentation is available in:
+- **Competitive Analysis:** [`docs/UX_UI Magic Path Deep Research /Gemini - Prompt 2 - Competitive & Feature Analysis of MagicPath.ai.md`](docs/UX_UI%20Magic%20Path%20Deep%20Research%20/Gemini%20-%20Prompt%202%20-%20Competitive%20&%20Feature%20Analysis%20of%20MagicPath.ai.md)
+- **Power-User Tips:** [`docs/UX_UI Magic Path Deep Research /GPT 5 - Agent Mode - Prompt 7 - _Power-User_ Tips & Hidden Features.md`](docs/UX_UI%20Magic%20Path%20Deep%20Research%20/GPT%205%20-%20Agent%20Mode%20-%20Prompt%207%20-%20_Power-User_%20Tips%20&%20Hidden%20Features.md)
+- **Prompting Guide:** [`docs/UX_UI Magic Path Deep Research /ChatGPT 5 Pro - Prompt 3 - The _MagicPath.ai Prompting 101_ Guide.md`](docs/UX_UI%20Magic%20Path%20Deep%20Research%20/ChatGPT%205%20Pro%20-%20Prompt%203%20-%20The%20_MagicPath.ai%20Prompting%20101_%20Guide.md)
 
 ---
 

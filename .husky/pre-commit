@@ -1,4 +1,90 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# 16BitFit Pre-Commit Hook - Secret Detection
+# Prevents accidental commits of API keys, tokens, and credentials
+
+echo "🔍 Scanning for secrets in staged files..."
+
+# Define patterns for common secrets
+PATTERNS=(
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*'  # JWT tokens
+  'ghp_[a-zA-Z0-9]{36}'                                                      # GitHub tokens
+  'sk-[a-zA-Z0-9]{48}'                                                       # OpenAI keys
+  'AIzaSy[a-zA-Z0-9_-]{33}'                                                  # Google API keys
+  'fal_[a-zA-Z0-9]{32,}'                                                     # FAL.ai keys
+  'hf_[a-zA-Z0-9]{32,}'                                                      # HuggingFace tokens
+  'ctx7sk_[a-zA-Z0-9]{32,}'                                                  # Context7 keys
+  'fc_[a-zA-Z0-9]{32,}'                                                      # Firecrawl keys
+  'sbp_[a-zA-Z0-9]{40,}'                                                     # Supabase service role
+  'figd_[a-zA-Z0-9_-]{40,}'                                                  # Figma tokens
+  'AKIA[A-Z0-9]{16}'                                                         # AWS access keys
+  'sk_live_[a-zA-Z0-9]{24,}'                                                 # Stripe live keys
+)
+
+# Get list of staged files (exclude deletions)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+# Flag to track if secrets were found
+SECRETS_FOUND=0
+
+# Check each staged file against all patterns
+for file in $STAGED_FILES; do
+  # Skip binary files and images
+  if file "$file" 2>/dev/null | grep -qE 'image|binary|executable'; then
+    continue
+  fi
+
+  # Skip node_modules and build directories
+  if echo "$file" | grep -qE 'node_modules|build|dist|\.git/|ios/Pods/|android/\.gradle/'; then
+    continue
+  fi
+
+  for pattern in "${PATTERNS[@]}"; do
+    if git diff --cached "$file" | grep -qE "$pattern"; then
+      echo "❌ ERROR: Potential secret detected in $file"
+      echo "   Pattern matched: API key or token"
+      SECRETS_FOUND=1
+    fi
+  done
+done
+
+# Check for .env files being committed (but allow .xcode.env which is build config)
+if echo "$STAGED_FILES" | grep -qE '(^|/)\.env$|(^|/)\.env\.local$|(^|/)[^/]*\.env\.local$' | grep -v '.xcode.env'; then
+  echo "❌ ERROR: .env file detected in staged files"
+  echo "   .env files should NEVER be committed to git"
+  echo "   Use .env.example for templates instead"
+  SECRETS_FOUND=1
+fi
+
+# Check for hardcoded Supabase URLs in code (except examples)
+for file in $STAGED_FILES; do
+  if echo "$file" | grep -qE '\.(ts|tsx|js|jsx)$' && ! echo "$file" | grep -qE 'example|test|spec'; then
+    if git diff --cached "$file" | grep -qE 'https://[a-z]{20}\.supabase\.co'; then
+      echo "⚠️  WARNING: Hardcoded Supabase URL detected in $file"
+      echo "   Consider using environment variables instead"
+    fi
+  fi
+done
+
+# If secrets were found, abort the commit
+if [ $SECRETS_FOUND -eq 1 ]; then
+  echo ""
+  echo "🚫 COMMIT BLOCKED: Secrets detected in staged files"
+  echo ""
+  echo "To fix:"
+  echo "  1. Remove the secrets from your code"
+  echo "  2. Use environment variables instead"
+  echo "  3. Update .env (which is gitignored)"
+  echo "  4. Stage your changes again"
+  echo ""
+  echo "If this is a false positive, you can bypass with:"
+  echo "  git commit --no-verify"
+  echo ""
+  exit 1
+fi
+
+echo "✅ No secrets detected"
+
+# Run lint-staged for code quality checks
 npx lint-staged

@@ -423,6 +423,23 @@ Mobile Shell follows **Atomic Design**:
 - **React Navigation** for navigation state
 - **Supabase Realtime** for backend sync
 
+### Frontend UI/UX Workflow
+
+**All frontend screens are designed using MagicPath.ai** - a conversational prototyping canvas that generates React components from natural language prompts.
+
+**Workflow:**
+1. Write prompts in `docs/design-system/magicpath-prompt-library.md`
+2. Generate screens in MagicPath.ai using **Theme 6: LCD Screen Content** (329×584pt)
+3. Export React/HTML code
+4. Integrate into `apps/mobile-shell/src/screens/`
+
+**Documentation:**
+- **Prompt Library:** [`docs/design-system/magicpath-prompt-library.md`](docs/design-system/magicpath-prompt-library.md) - All screen prompts
+- **Deep Research:** [`docs/UX_UI Magic Path Deep Research /`](docs/UX_UI%20Magic%20Path%20Deep%20Research%20/) - MagicPath.ai capabilities and best practices
+- **CLAUDE.md:** See "[Frontend UI/UX Workflow: MagicPath.ai](CLAUDE.md#frontend-uiux-workflow-magicpathai)" section for complete guide
+
+**For future agents:** When implementing new UI screens, generate prompts for MagicPath.ai instead of writing React Native components directly.
+
 ## Configuration Details
 
 ### Metro Bundler Configuration
@@ -774,7 +791,7 @@ import { useAuthStore } from './stores/authStore';
 const { signInWithSocial } = useAuthStore();
 await signInWithSocial('google');
 
-// Session established after OAuth redirect to com.16bitfit://auth/callback
+// Session established after OAuth redirect to sixteenbitfitv3://auth/callback
 ```
 
 **Manual Verification (Supabase Dashboard):**

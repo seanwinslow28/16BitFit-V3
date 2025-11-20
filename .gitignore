@@ -3,7 +3,6 @@ node_modules/
 npm-debug.log
 yarn-error.log
 package-lock.json
-yarn.lock
 
 # Environment
 .env
@@ -138,3 +137,29 @@ apps/mobile-shell/src/config/env.ts
 # Health data and PII
 **/health-data-samples/
 **/user-data-exports/
+
+# Direnv (contains environment activation)
+.envrc
+
+# Claude/AI artifacts (may contain sensitive context)
+.claude/
+.gemini/
+
+# Xcode local environment files
+**/.xcode.env.local
+**/ios/.xcode.env.local
+
+# Node version manager files
+.nvmrc.local
+.node-version.local
+
+# Build and setup scripts (may be machine-specific)
+setup-fnm.sh
+switch-to-node-18.sh
+
+# EAS Build configuration (may contain secrets)
+apps/mobile-shell/eas.json
+
+# Tool-specific directories
+tools/
+

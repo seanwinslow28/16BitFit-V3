@@ -1,23 +1,25 @@
 /**
- * FormField - Complete form input with label and validation
+ * FormField - Label + Input + Validation + Error
  *
- * Combines label, input, helper text, and error messages into a cohesive form field.
- * Supports validation states with icons and shake animation for errors.
+ * Composite form field component that handles input with validation, error states,
+ * and helper text. Uses atomic components for consistent styling.
  *
  * @example
  * <FormField
  *   label="Username"
  *   value={username}
  *   onChangeText={setUsername}
+ *   placeholder="Enter username..."
  *   error={usernameError}
+ *   helperText="3-20 characters"
  *   required
  * />
  */
 
-import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
-import { PixelText, PixelInput, PixelIcon } from '@/components/atoms';
-import { tokens, durations } from '@/design-system';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { PixelInput, PixelText, PixelIcon } from '@/components/atoms';
+import { tokens } from '@/design-system';
 
 // ─────────────────────────────────────────────────────────
 // Types & Interfaces
@@ -26,32 +28,30 @@ import { tokens, durations } from '@/design-system';
 export interface FormFieldProps {
   /** Field label */
   label: string;
-  /** Current value */
+  /** Input value */
   value: string;
   /** Change handler */
   onChangeText: (text: string) => void;
   /** Placeholder text */
   placeholder?: string;
-  /** Helper text (shown when no error) */
-  helperText?: string;
-  /** Error message */
+  /** Error message (if validation failed) */
   error?: string;
-  /** Success message */
-  successText?: string;
+  /** Helper text below input */
+  helperText?: string;
   /** Whether field is required */
   required?: boolean;
-  /** Validation function */
-  validate?: (value: string) => { valid: boolean; message?: string };
-  /** Secure text entry (password) */
-  secureTextEntry?: boolean;
-  /** Auto-capitalize behavior */
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-  /** Keyboard type */
-  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
-  /** Max length */
-  maxLength?: number;
   /** Whether field is disabled */
   disabled?: boolean;
+  /** Input type (default: 'text') */
+  type?: 'text' | 'email' | 'password' | 'numeric';
+  /** Maximum character length */
+  maxLength?: number;
+  /** Autocapitalize mode */
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  /** Autocorrect enabled */
+  autoCorrect?: boolean;
+  /** Test ID for testing */
+  testID?: string;
 }
 
 // ─────────────────────────────────────────────────────────
@@ -64,140 +64,101 @@ const FormField: React.FC<FormFieldProps> = React.memo(
     value,
     onChangeText,
     placeholder,
-    helperText,
     error,
-    successText,
+    helperText,
     required = false,
-    validate,
-    secureTextEntry = false,
-    autoCapitalize = 'sentences',
-    keyboardType = 'default',
-    maxLength,
     disabled = false,
+    type = 'text',
+    maxLength,
+    autoCapitalize,
+    autoCorrect,
+    testID,
   }) => {
-    const [touched, setTouched] = useState(false);
-    const [validationError, setValidationError] = useState<string | undefined>();
-    const shakeAnim = useRef(new Animated.Value(0)).current;
-
-    const showError = (error || (touched && validationError)) && !disabled;
-    const showSuccess = !showError && value.length > 0 && !disabled;
-    const displayErrorText = error || validationError;
-
-    // Shake animation on error
-    useEffect(() => {
-      if (showError && displayErrorText) {
-        Animated.sequence([
-          Animated.timing(shakeAnim, {
-            toValue: -5,
-            duration: 50,
-            useNativeDriver: true,
-          }),
-          Animated.timing(shakeAnim, {
-            toValue: 5,
-            duration: 50,
-            useNativeDriver: true,
-          }),
-          Animated.timing(shakeAnim, {
-            toValue: -5,
-            duration: 50,
-            useNativeDriver: true,
-          }),
-          Animated.timing(shakeAnim, {
-            toValue: 0,
-            duration: 50,
-            useNativeDriver: true,
-          }),
-        ]).start();
-      }
-    }, [showError, displayErrorText, shakeAnim]);
-
-    const handleBlur = () => {
-      setTouched(true);
-      if (validate) {
-        const result = validate(value);
-        if (!result.valid) {
-          setValidationError(result.message);
-        } else {
-          setValidationError(undefined);
-        }
+    // Determine input props based on type
+    const getInputProps = () => {
+      switch (type) {
+        case 'email':
+          return {
+            keyboardType: 'email-address' as const,
+            autoCapitalize: 'none' as const,
+            autoCorrect: false,
+          };
+        case 'password':
+          return {
+            secureTextEntry: true,
+            autoCapitalize: 'none' as const,
+            autoCorrect: false,
+          };
+        case 'numeric':
+          return {
+            keyboardType: 'numeric' as const,
+          };
+        default:
+          return {
+            autoCapitalize: autoCapitalize || 'sentences',
+            autoCorrect: autoCorrect !== undefined ? autoCorrect : true,
+          };
       }
     };
 
-    const handleChangeText = (text: string) => {
-      onChangeText(text);
-      if (validationError) {
-        setValidationError(undefined);
-      }
-    };
+    const inputProps = getInputProps();
+    const hasError = !!error;
+    const showHelperText = helperText && !hasError;
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container} testID={testID}>
         {/* Label */}
-        <PixelText variant="inputLabel" style={styles.label}>
-          {label}
-          {required && (
-            <PixelText variant="inputLabel" colorKey="secondary">
-              {' *'}
+        <View style={styles.labelContainer}>
+          <PixelText variant="bodySmall" colorKey="primary" style={styles.label}>
+            {label}
+            {required && (
+              <PixelText variant="bodySmall" colorKey="primary">
+                {' *'}
+              </PixelText>
+            )}
+          </PixelText>
+        </View>
+
+        {/* Input */}
+        <PixelInput
+          value={value}
+          onChangeText={onChangeText}
+          placeholder={placeholder}
+          editable={!disabled}
+          maxLength={maxLength}
+          error={hasError}
+          testID={testID ? `${testID}-input` : undefined}
+          {...inputProps}
+        />
+
+        {/* Error Message */}
+        {hasError && (
+          <View style={styles.errorContainer}>
+            <PixelIcon
+              name="error"
+              size={16}
+              color={tokens.colors.feedback.error}
+            />
+            <PixelText
+              variant="caption"
+              style={[styles.messageText, styles.errorText]}
+            >
+              {error}
             </PixelText>
-          )}
-        </PixelText>
-
-        {/* Input with shake animation */}
-        <Animated.View
-          style={[
-            styles.inputWrapper,
-            {
-              transform: [{ translateX: shakeAnim }],
-            },
-          ]}
-        >
-          <PixelInput
-            value={value}
-            onChangeText={handleChangeText}
-            onBlur={handleBlur}
-            placeholder={placeholder}
-            secureTextEntry={secureTextEntry}
-            autoCapitalize={autoCapitalize}
-            keyboardType={keyboardType}
-            maxLength={maxLength}
-            editable={!disabled}
-            style={[
-              showError && styles.inputError,
-              showSuccess && styles.inputSuccess,
-            ]}
-          />
-
-          {/* Success icon */}
-          {showSuccess && (
-            <View style={styles.successIcon}>
-              <PixelIcon
-                name="check"
-                size={20}
-                color={tokens.colors.dmg.light}
-              />
-            </View>
-          )}
-        </Animated.View>
-
-        {/* Error text */}
-        {showError && displayErrorText && (
-          <PixelText variant="caption" colorKey="secondary">
-            {displayErrorText}
-          </PixelText>
+          </View>
         )}
 
-        {/* Success text */}
-        {showSuccess && successText && (
-          <PixelText variant="caption" colorKey="tertiary">
-            {successText}
-          </PixelText>
-        )}
-
-        {/* Helper text */}
-        {!showError && !showSuccess && helperText && (
-          <PixelText variant="caption" colorKey="secondary">
-            {helperText}
-          </PixelText>
+        {/* Helper Text */}
+        {showHelperText && (
+          <View style={styles.helperContainer}>
+            <PixelText
+              variant="caption"
+              colorKey="muted"
+              style={styles.messageText}
+            >
+              {helperText}
+            </PixelText>
+          </View>
         )}
       </View>
     );
@@ -213,25 +174,27 @@ FormField.displayName = 'FormField';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginBottom: 24,
+  },
+  labelContainer: {
+    marginBottom: tokens.spacing[2], // 8px
   },
   label: {
-    marginBottom: 8,
+    fontWeight: '600',
   },
-  inputWrapper: {
-    position: 'relative',
+  errorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: tokens.spacing[2], // 8px
+    gap: tokens.spacing[1], // 4px
   },
-  inputError: {
-    borderColor: tokens.colors.feedback.error,
+  helperContainer: {
+    marginTop: tokens.spacing[2], // 8px
   },
-  inputSuccess: {
-    borderColor: tokens.colors.dmg.light,
+  messageText: {
+    flex: 1,
   },
-  successIcon: {
-    position: 'absolute',
-    right: 16,
-    top: '50%',
-    marginTop: -10, // Half of icon size for centering
+  errorText: {
+    color: tokens.colors.feedback.error,
   },
 });
 

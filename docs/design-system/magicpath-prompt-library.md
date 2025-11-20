@@ -3376,6 +3376,273 @@ This allows you to design efficiently (screen-only) while maintaining the option
 
 ---
 
+## Story 1.5: Photo Upload & Avatar Generation (LCD Screen-Only)
+
+### Context
+
+Story 1.5 implements the photo upload and AI avatar generation flow for the onboarding process. Users upload a headshot (camera or gallery), which is sent to the `avatar-generator` Edge Function that uses OpenAI's gpt-image-1 Image Edit API to apply DMG pixel art styling while preserving their facial identity.
+
+**Backend:** See `apps/supabase-functions/avatar-generator/index.ts` for implementation details.
+
+**MagicPath Workflow:**
+1. Generate PhotoUploadScreen (choose camera/gallery → upload → preview)
+2. Generate AvatarPreviewScreen (display generated avatar → confirm/retry)
+3. Export React Native components
+4. Integrate with existing `imageService.ts` and atomic components
+
+---
+
+### LCD PhotoUploadScreen (Screen Only, No Shell)
+
+**Purpose:** Allow users to capture or select a headshot photo for avatar generation.
+
+**Viewport:** 329×584pt (LCD screen dimensions from Game Boy mockup)
+
+**Theme:** Theme 6 - LCD Screen Content
+
+**Full Prompt:**
+
+```
+Create a Game Boy DMG-style photo upload screen for the 16BitFit onboarding flow using the LCD Screen Content theme (329×584pt viewport).
+
+LAYOUT STRUCTURE (Top to Bottom):
+
+1. Progress Indicator (Top, 20px from LCD edge)
+   - Four progress dots arranged horizontally
+   - Dot 1, 2, 3: Filled circle (#8BAC0F, 16×16px)
+   - Dot 4: Outline only (#306230, 16×16px, 3px border)
+   - 12px gap between dots
+   - Centered horizontally
+
+2. Header Section (48px below progress dots)
+   - Title: "Upload Your Photo" (Press Start 2P, 20px, #0F380F)
+   - Subtitle: "We'll create your pixel art avatar" (Montserrat, 14px, #306230)
+   - Center-aligned
+   - 8px vertical spacing between title and subtitle
+
+3. Photo Selection Buttons (Center of screen, if no photo selected)
+   - Button 1: "Take Photo"
+     - Width: 280px, Height: 48px
+     - Background: #8BAC0F (lime highlight)
+     - Text: "TAKE PHOTO" (Montserrat Bold, 16px, #0F380F)
+     - Icon: Camera icon (20×20px, #0F380F) to the left of text
+     - Border: 3px solid #306230
+     - Pixel shadow: 4×4px offset, #306230, no blur
+   
+   - Button 2: "Choose from Gallery" (16px below Button 1)
+     - Width: 280px, Height: 48px
+     - Background: #9BBC0F (lightest green)
+     - Text: "CHOOSE FROM GALLERY" (Montserrat SemiBold, 14px, #0F380F)
+     - Icon: Image/folder icon (20×20px, #0F380F) to the left of text
+     - Border: 3px solid #306230
+     - Pixel shadow: 4×4px offset, #306230, no blur
+
+4. Photo Preview State (if photo selected, replaces buttons)
+   - Image container: 200×200px square, centered
+   - Border: 4px solid #306230
+   - Placeholder: Show a 3:4 portrait photo placeholder
+   - 16px margin below image
+   
+   - "Choose Different Photo" button
+     - Width: 280px, Height: 40px
+     - Background: #9BBC0F
+     - Text: "CHOOSE DIFFERENT PHOTO" (Montserrat, 12px, #0F380F)
+     - Border: 3px solid #306230
+
+5. Generate Button (Bottom, if photo selected)
+   - Position: 24px from bottom of LCD screen
+   - Width: 280px, Height: 48px
+   - Background: #8BAC0F (lime highlight)
+   - Text: "GENERATE MY AVATAR" (Montserrat Bold, 16px, #0F380F)
+   - Border: 3px solid #0F380F (emphasized)
+   - Pixel shadow: 4×4px offset, #0F380F
+   - Center-aligned
+
+6. Loading State (when generating)
+   - Replace "Generate" button with:
+     - Spinning pixel icon (16×16px, #0F380F)
+     - Text below: "Generating Avatar..." (Montserrat, 14px, #306230)
+     - Subtitle: "This may take up to 15 seconds" (Montserrat, 12px, #306230)
+
+DESIGN SYSTEM (LCD Screen Content):
+- Background: #9BBC0F (neon grass glow - lightest green)
+- Primary text: #0F380F (deep forest shadow - darkest green)
+- Secondary text: #306230 (pine border - medium-dark green)
+- Primary button: #8BAC0F background (lime highlight)
+- Secondary button: #9BBC0F background (same as screen background)
+- All borders: #306230, 3px width, zero border-radius
+- Emphasis borders: #0F380F, 3px-4px width
+- Pixel shadows: 4×4px offset, matching border color, no blur
+- Touch targets: Minimum 44×44px (buttons exceed this)
+
+TYPOGRAPHY:
+- Headings: Press Start 2P, 18-20px
+- Body text: Montserrat Regular, 12-14px
+- Button text: Montserrat SemiBold/Bold, 14-16px
+- Helper text: Montserrat Regular, 12px
+- Line height: 1.4-1.5 for readability
+
+SPACING (LCD Optimized - 8px grid):
+- Screen top margin: 20px
+- Section gaps: 24-32px
+- Button gaps: 16px
+- Text gaps: 8-12px
+- Bottom margin: 24px
+
+INTERACTIONS:
+- Button press: Scale to 0.98, duration 100ms
+- Focus state: Border width 3px → 4px, color to #8BAC0F
+- No border-radius (sharp corners for retro aesthetic)
+- Provide clear visual feedback for all touch interactions
+
+CONSTRAINTS:
+- Design for 329×584pt LCD viewport (no shell)
+- Strict 4-color DMG palette (no gradients, no other colors)
+- All elements must fit without scrolling (except during generation state)
+- Maintain 24px horizontal margins for 280px content width
+- Ensure WCAG AA contrast ratios (DMG palette naturally complies)
+```
+
+---
+
+### LCD AvatarPreviewScreen (Screen Only, No Shell)
+
+**Purpose:** Display the generated DMG pixel art avatar and allow user to confirm or regenerate.
+
+**Viewport:** 329×584pt (LCD screen dimensions from Game Boy mockup)
+
+**Theme:** Theme 6 - LCD Screen Content
+
+**Full Prompt:**
+
+```
+Create a Game Boy DMG-style avatar preview screen for the 16BitFit onboarding flow using the LCD Screen Content theme (329×584pt viewport).
+
+LAYOUT STRUCTURE (Top to Bottom):
+
+1. Progress Indicator (Top, 20px from LCD edge)
+   - Four progress dots arranged horizontally
+   - All dots filled: (#8BAC0F, 16×16px) - showing 4 of 4 complete
+   - 12px gap between dots
+   - Centered horizontally
+
+2. Header Section (48px below progress dots)
+   - Title: "Your Avatar" (Press Start 2P, 20px, #0F380F)
+   - Subtitle: "Looking good, trainer!" (Montserrat, 14px, #306230)
+   - Center-aligned
+   - 8px vertical spacing between title and subtitle
+
+3. Avatar Display (Center of screen)
+   - Container: 240×240px square, centered
+   - Border: 4px solid #0F380F (emphasized border)
+   - Pixel shadow: 6×6px offset, #306230, no blur (deeper shadow for emphasis)
+   - Background: #9BBC0F
+   - Display: Generated DMG pixel art avatar (placeholder: show a pixelated character portrait)
+   - 24px margin below avatar
+
+4. Avatar Description (Below avatar)
+   - Text: "Stage 1 Trainer" (Montserrat SemiBold, 14px, #0F380F)
+   - Archetype badge (if applicable): Small pill badge (#8BAC0F background, #0F380F text, 3px border #306230)
+   - Center-aligned
+   - 32px margin below text
+
+5. Action Buttons (Bottom section)
+   - Primary Button: "Looks Great!"
+     - Position: 60px from bottom of LCD screen
+     - Width: 280px, Height: 48px
+     - Background: #8BAC0F (lime highlight)
+     - Text: "LOOKS GREAT!" (Montserrat Bold, 16px, #0F380F)
+     - Border: 4px solid #0F380F (emphasized)
+     - Pixel shadow: 4×4px offset, #0F380F
+     - Center-aligned
+   
+   - Secondary Button: "Try Again" (48px below primary button)
+     - Width: 280px, Height: 40px
+     - Background: #9BBC0F (lightest green - matches screen)
+     - Text: "TRY AGAIN" (Montserrat SemiBold, 14px, #306230)
+     - Border: 3px solid #306230
+     - Pixel shadow: 4×4px offset, #306230
+     - Center-aligned
+
+6. Helper Text (Bottom, 16px below "Try Again" button)
+   - Text: "You can always change this later" (Montserrat, 10px, #306230)
+   - Center-aligned
+   - 12px from bottom of LCD screen
+
+DESIGN SYSTEM (LCD Screen Content):
+- Background: #9BBC0F (neon grass glow - lightest green)
+- Primary text: #0F380F (deep forest shadow - darkest green)
+- Secondary text: #306230 (pine border - medium-dark green)
+- Avatar border: #0F380F, 4px (emphasized)
+- Primary button: #8BAC0F background, #0F380F border
+- Secondary button: #9BBC0F background, #306230 border
+- All borders: Zero border-radius (sharp corners)
+- Pixel shadows: 4-6×4-6px offset, no blur
+- Strict 4-color palette only
+
+TYPOGRAPHY:
+- Headings: Press Start 2P, 18-20px
+- Subheadings: Montserrat SemiBold, 14px
+- Body text: Montserrat Regular, 12-14px
+- Button text: Montserrat Bold/SemiBold, 14-16px
+- Helper text: Montserrat Regular, 10px
+- Line height: 1.4-1.5
+
+SPACING (LCD Optimized - 8px grid):
+- Screen top margin: 20px
+- Avatar to buttons: 56px
+- Button gap: 12px
+- Bottom margin: 24px total
+- Horizontal margins: 24px (280px content width)
+
+INTERACTIONS:
+- Primary button press: Scale to 0.98, duration 100ms
+- Secondary button press: Scale to 0.98, duration 100ms
+- Focus states: Border width increases by 1px, color change to #8BAC0F
+- Smooth transition to next screen (fade out, 300ms)
+
+SUCCESS STATE:
+- Show brief celebration animation before proceeding
+- Consider pixel sparkle/shine effect around avatar (optional)
+- Green checkmark icon (16×16px) briefly appears above avatar
+
+CONSTRAINTS:
+- Design for 329×584pt LCD viewport (no shell)
+- Strict 4-color DMG palette
+- All elements must fit without scrolling
+- Avatar image is the focal point - give it emphasis
+- Clear hierarchy: Avatar → Primary CTA → Secondary option
+- Maintain 24px horizontal margins
+```
+
+---
+
+### Component Integration Notes
+
+After generating these screens in MagicPath.ai and exporting:
+
+**PhotoUploadScreen Integration:**
+1. Replace generic buttons with `<PixelButton>` atomic component
+2. Wire camera/gallery actions to `imageService.openCamera()` / `imageService.openGallery()`
+3. Add `Image` component from React Native for photo preview
+4. Connect "Generate" button to `imageService.generateAvatar()`
+5. Add loading state with `<LoadingSpinner>` molecular component
+6. Handle errors with `<ToastNotification>` molecular component
+
+**AvatarPreviewScreen Integration:**
+1. Receive `avatarUrl` from navigation params
+2. Display avatar using `<Image source={{ uri: avatarUrl }}>`
+3. "Looks Great!" button → Update Zustand store → Navigate to Home
+4. "Try Again" button → Navigate back to PhotoUploadScreen with `regen_reason: 'retry'`
+5. Add `<ProgressIndicator currentStep={4} totalSteps={4}>` molecular component
+
+**Shared Services:**
+- `imageService.ts` - Camera, gallery, upload, and generation logic
+- `onboardingStore.ts` - Zustand store for onboarding state (selectedArchetype, avatarUrl)
+- `navigationService.ts` - Navigation helpers for onboarding flow
+
+---
+
 ## Export & Handoff
 
 ### When You're Ready to Export
@@ -3421,6 +3688,13 @@ Before exporting, verify:
 
 ## Version History
 
+- **v1.2** (2025-11-20): Added Story 1.5 (Photo Upload & Avatar Generation) prompts
+  - PhotoUploadScreen: Camera/gallery selection, photo preview, generation workflow
+  - AvatarPreviewScreen: Generated avatar display, confirm/retry actions
+  - Component integration notes for imageService and atomic components
+  - Complete specifications matching LCD Screen Content theme (329×584pt)
+  - All prompts follow DMG 4-color palette and retro aesthetic
+
 - **v1.1** (2025-11-02): Added LCD Screen-Only theme and prompts
   - New Theme 6: LCD Screen Content (329×584pt) for production development
   - Ultra-simplified screen-only prompts (WelcomeScreen, ProfileSetupScreen, ArchetypeSelectionScreen)
@@ -3435,4 +3709,4 @@ Before exporting, verify:
 
 **Document Owner:** UI/UX Specialist (Sally)
 **Approved By:** Architect (Pending)
-**Last Updated:** 2025-11-02
+**Last Updated:** 2025-11-20

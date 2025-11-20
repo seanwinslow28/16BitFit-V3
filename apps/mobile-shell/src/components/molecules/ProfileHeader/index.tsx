@@ -62,7 +62,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = React.memo(
           )}
 
           {meta && (
-            <PixelText variant="caption" colorKey="tertiary">
+            <PixelText variant="caption" colorKey="muted">
               {meta}
             </PixelText>
           )}

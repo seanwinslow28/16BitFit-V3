@@ -1,26 +1,33 @@
 /**
- * LoadingSpinner - Loading indicator with optional message
+ * LoadingSpinner - Rotating pixel icon loading indicator
  *
- * Rotating pixel icon spinner for loading states.
+ * Animated loading spinner using PixelIcon with rotation animation.
+ * Optimized for 60fps performance with native driver.
  *
  * @example
- * <LoadingSpinner message="Loading..." size="medium" />
+ * <LoadingSpinner size={32} />
+ * <LoadingSpinner size={24} message="Generating avatar..." />
  */
 
 import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated, Easing } from 'react-native';
 import { PixelIcon, PixelText } from '@/components/atoms';
 import { tokens } from '@/design-system';
+import type { IconSize } from '@/components/atoms/PixelIcon';
 
 // ─────────────────────────────────────────────────────────
 // Types & Interfaces
 // ─────────────────────────────────────────────────────────
 
 export interface LoadingSpinnerProps {
-  /** Optional loading message */
+  /** Spinner size (default: 32) */
+  size?: IconSize;
+  /** Loading message to display below spinner */
   message?: string;
-  /** Spinner size */
-  size?: 'small' | 'medium' | 'large';
+  /** Spinner color (default: DMG light) */
+  color?: string;
+  /** Test ID for testing */
+  testID?: string;
 }
 
 // ─────────────────────────────────────────────────────────
@@ -28,48 +35,62 @@ export interface LoadingSpinnerProps {
 // ─────────────────────────────────────────────────────────
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = React.memo(
-  ({ message, size = 'medium' }) => {
-    const rotation = useRef(new Animated.Value(0)).current;
-
-    const iconSize = size === 'small' ? 24 : size === 'large' ? 32 : 32;
+  ({
+    size = 32,
+    message,
+    color = tokens.colors.dmg.light,
+    testID,
+  }) => {
+    const rotateAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-      const rotateAnimation = Animated.loop(
-        Animated.timing(rotation, {
+      // Create infinite rotation animation
+      const animation = Animated.loop(
+        Animated.timing(rotateAnim, {
           toValue: 1,
-          duration: 800,
+          duration: 1200, // 1.2 seconds per rotation
           easing: Easing.linear,
-          useNativeDriver: true,
+          useNativeDriver: true, // GPU acceleration
         })
       );
-      rotateAnimation.start();
 
-      return () => rotateAnimation.stop();
-    }, [rotation]);
+      animation.start();
 
-    const rotateInterpolate = rotation.interpolate({
+      // Cleanup on unmount
+      return () => {
+        animation.stop();
+      };
+    }, [rotateAnim]);
+
+    // Interpolate rotation value to degrees
+    const rotate = rotateAnim.interpolate({
       inputRange: [0, 1],
       outputRange: ['0deg', '360deg'],
     });
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container} testID={testID}>
+        {/* Rotating Icon */}
         <Animated.View
           style={{
-            transform: [{ rotate: rotateInterpolate }],
+            transform: [{ rotate }],
           }}
+          accessible={false}
         >
           <PixelIcon
             name="settings"
-            size={iconSize}
-            color={tokens.colors.interactive.primary}
+            size={size}
+            color={color}
+            accessibilityLabel="Loading"
           />
         </Animated.View>
 
+        {/* Optional Message */}
         {message && (
           <PixelText
             variant="body"
             colorKey="secondary"
+            align="center"
             style={styles.message}
           >
             {message}
@@ -90,12 +111,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 16,
-    padding: 24,
+    gap: tokens.spacing[3], // 16px
   },
   message: {
-    marginTop: 8,
-    textAlign: 'center',
+    marginTop: tokens.spacing[2], // 8px
   },
 });
 

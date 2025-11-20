@@ -29,7 +29,7 @@
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="com.16bitfit" />
+            <data android:scheme="sixteenbitfitv3" />
         </intent-filter>
         <!-- Health Connect Permission Rationale -->
         <intent-filter>

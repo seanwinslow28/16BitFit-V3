@@ -64,15 +64,16 @@ jest.mock('@react-navigation/native', () => {
 // Silence the warning: Animated: `useNativeDriver` is not supported
 // Note: NativeAnimatedHelper mock is handled by react-native preset
 
-// Provide safe defaults for Supabase environment vars during Jest runs.
-// This prevents supabaseClient from throwing on import when local env files aren't configured.
-if (!process.env.EXPO_PUBLIC_SUPABASE_URL || !process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY) {
+// Provide safe defaults for Supabase during Jest runs unless explicitly opted in.
+const supabaseIntegrationOptIn = process.env.JEST_ALLOW_SUPABASE === 'true';
+if (!supabaseIntegrationOptIn) {
   process.env.EXPO_PUBLIC_SUPABASE_URL =
     process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://example.supabase.co';
   process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY =
     process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'test-anon-key';
-  // Signal to tests that we're using mock credentials so integration suites can skip.
   process.env.JEST_SUPABASE_DISABLED = 'true';
+} else {
+  process.env.JEST_SUPABASE_DISABLED = 'false';
 }
 
 // Make Animated.timing synchronous during tests to avoid act() warnings and timer juggling.

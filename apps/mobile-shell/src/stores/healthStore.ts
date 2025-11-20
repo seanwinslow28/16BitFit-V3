@@ -54,7 +54,7 @@ export const useHealthStore = create<HealthState>()(
       finishSync: (error) =>
         set({
           isSyncing: false,
-          lastSyncTime: error ? undefined : new Date(),
+          lastSyncTime: error ? null : new Date().toISOString(),
           syncError: error || null,
         }),
 

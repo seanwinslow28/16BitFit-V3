@@ -115,7 +115,7 @@ export async function signInWithProvider(
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: 'com.16bitfit://auth/callback', // Deep link for mobile
+        redirectTo: 'sixteenbitfitv3://auth/callback', // Deep link for mobile
       },
     });
 
@@ -314,7 +314,7 @@ export async function resetPassword(
 ): Promise<{ success: boolean; error?: Error }> {
   try {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'com.16bitfit://auth/reset-password',
+      redirectTo: 'sixteenbitfitv3://auth/reset-password',
     });
 
     if (error) {
